@@ -38,7 +38,7 @@ Bundle 'tpope/vim-rhubarb'
 Bundle 'tpope/vim-speeddating'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-ragtag'
-Bundle 'mattn/zencoding-vim'
+" Bundle 'mattn/zencoding-vim'
 Bundle 'mileszs/ack.vim'
 Bundle 'DataWraith/auto_mkdir'
 Bundle 'sjl/gundo.vim'
@@ -65,11 +65,11 @@ Bundle 'fholgado/minibufexpl.vim'
 Bundle 'rosenfeld/conque-term'
 " Bundle 'SirVer/ultisnips'
 " Bundle 'othree/fecompressor.vim'
-" Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 "}}}
 "  Vim-scripts repos {{{
 Bundle 'TaskList.vim'
-" Bundle 'Rainbow-Parenthesis'
+Bundle 'bash-support.vim'
 "}}}
 "  Other Git repos "{{{
 Bundle 'git://git.wincent.com/command-t.git'
@@ -964,7 +964,6 @@ map <leader>ss ]sz=
 " }}}
 " Word and Character swapping {{{
 nnoremap <silent> gc xph
-
 " }}}
 " }}}
 " Git related (Fugitive and Vim-git)"{{{
@@ -1230,7 +1229,8 @@ iab llorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eius
 	" Syntastic {{{
 	let g:syntastic_enable_signs = 1
 	let g:syntastic_auto_loc_list = 0
-	au FileType c,coffee,cpp,cucumber,docbk,eruby,haml,haskell,html,javascript,lua,perl,php,python,ruby,sass,sh,tex,xhtml nmap <Leader>val :Errors<CR><C-W>j
+	nmap <F5> :SyntasticCheck<CR>
+	nmap <F6> :Errors<CR><C-W>j
 	" }}}
 	" neocomplcache {{{
 	" TODO: Still need to tweak behavior with <TAB> to expand
@@ -1312,7 +1312,7 @@ iab llorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eius
 	let g:NERDTreeChristmasTree = 1
 	let g:NERDTreeCaseSensitiveSort = 1
 	let g:NERDTreeQuitOnOpen = 1
-	let g:NERDTreeWinPos = 'right'
+	let g:NERDTreeWinPos = 'left'
 	let g:NERDTreeWinSize = 50
 	let g:NERDTreeShowBookmarks = 1
 	map <F2> :NERDTreeToggle<CR>
@@ -1343,8 +1343,13 @@ iab llorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eius
 	" Tagbar {{{
 	map <F4> :TagbarToggle<CR>
 	" }}}
+	" Gundo {{{
+	map <F7> :GundoToggle<CR>
+	" }}}
 	" Fugitive {{{
 	" automatically delete fugitive buffers when leaving them
 	autocmd BufReadPost fugitive://* setlocal bufhidden=delete
 	" }}}
+	"  Sparkup
+	imap <C-y> <ESC><C-e>
 "}}}
