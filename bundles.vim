@@ -52,6 +52,7 @@ Bundle 'spf13/PIV'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'mikewest/vimroom'
 Bundle 'fholgado/minibufexpl.vim'
+" Bundle 'SirVer/ultisnips'
 " Bundle 'othree/fecompressor.vim'
 " Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 "}}}

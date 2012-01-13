@@ -1252,13 +1252,13 @@ iab llorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eius
 	nmap <Leader>ac <Plug>ToggleAutoCloseMappings
 	" }}}
 	" MiniBufExpl {{{
-	" let g:miniBufExplModSelTarget = 1
-	" let g:miniBufExplorerMoreThanOne = 2
-	" let g:miniBufExplModSelTarget = 0
-	" let g:miniBufExplUseSingleClick = 1
-	" let g:miniBufExplMapWindowNavVim = 1
-	" let g:miniBufExplVSplit = 15
-	" let g:miniBufExplSplitBelow=1
+	let g:miniBufExplModSelTarget = 1
+	let g:miniBufExplorerMoreThanOne = 2
+	let g:miniBufExplModSelTarget = 0
+	let g:miniBufExplUseSingleClick = 1
+	let g:miniBufExplMapWindowNavVim = 1
+	let g:miniBufExplVSplit = 20
+	let g:miniBufExplSplitBelow=1
 
 	let g:bufExplorerSortBy = "name"
 
@@ -1276,6 +1276,6 @@ iab llorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eius
 	" }}}
 	" Fugitive {{{
 	" automatically delete fugitive buffers when leaving them
-	" autocmd BufReadPost fugitive://* setlocal bufhidden=delete
+	autocmd BufReadPost fugitive://* setlocal bufhidden=delete
 	" }}}
 "}}}
