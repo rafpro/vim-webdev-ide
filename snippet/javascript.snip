@@ -84,3 +84,46 @@ alias oms
     }${10:,}
 
 
+snippet doc
+    /**
+     * ${1}
+     */
+
+snippet dochead
+    /**
+     * @fileoverview ${1}
+     * @author ${2}
+     * @version ${3}
+     * @license ${4}
+     */
+    ${5}
+
+snippet param
+    @param {${1:type}} ${2:name} ${3}
+
+snippet returns
+    @returns {${1:type}} ${2}
+
+snippet property
+    @property {${1:type}} ${2:propertyName} ${3}
+
+snippet memberOf
+    @memberOf ${1:parentNamePass}${2:#}
+
+snippet borrows
+    @borrows ${1:otherMemberName} as ${2:thisMemberName}
+
+snippet class
+    @class ${1}
+
+snippet default
+    @default {@link ${1}}
+
+snippet throws
+    @throws {${1:exceptionType}} ${2}
+
+snippet type
+    @type ${1:type}
+
+snippet requires
+    @requires ${1}
