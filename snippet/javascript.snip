@@ -1,0 +1,86 @@
+snippet ObjectMethod
+alias of
+	${1:method_name}: function(${2:attribute}){
+		${0}
+	}
+
+
+snippet VariableObject
+alias vo
+	var ${1:object_name} = {
+		${0}
+	};
+
+
+snippet ObjectSyntaxFunction
+alias vf
+	var ${1:function_name} = function() {
+		${0}
+	};
+
+
+snippet function
+alias func
+	function ${1:function_name}(${2:argument}) {
+		${0:// body...}
+	}
+
+
+snippet prototype
+alias proto
+	${1:class_name}.prototype.${2:method_name} = function(${3:first_argument}) {
+		${0:// body...}
+	};
+    
+
+snippet AnonymousFunction
+alias af
+    function(${1}) {${0:$TM_SELECTED_TEXT}};
+
+
+snippet if
+    if (${1:true}) {
+        ${0:$TM_SELECTED_TEXT}
+    };
+
+
+snippet IfElse
+alias ife
+    if (${1:true}) {
+        ${0:$TM_SELECTED_TEXT}
+    } else{
+        ${2}    
+    };
+
+
+snippet for
+	for (var ${2:i}=0; $2 < ${1:ARRAY}.length; $2+=1) {
+		${0}
+	}
+    
+snippet fori
+    for (var ${2:i} = ${1:ARRAY}.length - 1; $2 >=0; $2-=1) {
+		${0}
+	}
+    
+snippet ObjectValueJS
+alias ;,
+    ${1:value_name}:${0:value},
+
+
+snippet ObjectKey
+alias key
+    ${1:key}: "${2:value}"}${3:, }
+
+
+snippet timeout
+    setTimeout(function() {${0}}${2:}, ${1:10});
+
+
+snippet ObjectMethodString
+alias oms
+    '${1:${2:#thing}:${3:click}}': function(element){
+        $0
+    }${10:,}
+
+
