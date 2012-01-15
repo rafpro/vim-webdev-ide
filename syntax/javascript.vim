@@ -78,24 +78,24 @@ syntax keyword javaScriptPrototype      prototype
 """"""""""""""""""""""""
 " (** Modified by Jose Elera)
 "
-syntax keyword javaScriptBrowserObjects      window navigator screen history location
+syntax keyword javaScriptBrowserObjects           window navigator screen history location
 
-syntax keyword javaScriptDOMObjects      document event HTMLElement Anchor Area Base Body Button Form Frame Frameset Image Link Meta Option Select Style Table TableCell TableRow Textarea
-syntax keyword javaScriptDOMMethods   createTextNode createElement insertBefore replaceChild removeChild appendChild  hasChildNodes  cloneNode  normalize  isSupported  hasAttributes  getAttribute  setAttribute  removeAttribute  getAttributeNode  setAttributeNode  removeAttributeNode  getElementsByTagName  hasAttribute  getElementById
-syntax keyword javaScriptDOMProperties nodeName  nodeValue  nodeType  parentNode  childNodes  firstChild  lastChild  previousSibling  nextSibling  attributes  ownerDocument  namespaceURI  prefix  localName  tagName
+syntax keyword javaScriptDOMObjects               document event HTMLElement Anchor Area Base Body Button Form Frame Frameset Image Link Meta Option Select Style Table TableCell TableRow Textarea
+syntax keyword javaScriptDOMMethods               createTextNode createElement insertBefore replaceChild removeChild appendChild  hasChildNodes  cloneNode  normalize  isSupported  hasAttributes  getAttribute  setAttribute  removeAttribute  getAttributeNode  setAttributeNode  removeAttributeNode  getElementsByTagName  hasAttribute  getElementById
+syntax keyword javaScriptDOMProperties            nodeName  nodeValue  nodeType  parentNode  childNodes  firstChild  lastChild  previousSibling  nextSibling  attributes  ownerDocument  namespaceURI  prefix  localName  tagName
 
-syntax keyword javaScriptAjaxObjects     XMLHttpRequest
-syntax keyword javaScriptAjaxProperties readyState responseText responseXML status statusText
-syntax keyword javaScriptAjaxMethods onreadystatechange abort getAllResponseHeaders getResponseHeader open send setRequestHeader
+syntax keyword javaScriptAjaxObjects              XMLHttpRequest
+syntax keyword javaScriptAjaxProperties           readyState responseText responseXML status statusText
+syntax keyword javaScriptAjaxMethods              onreadystatechange abort getAllResponseHeaders getResponseHeader open send setRequestHeader
 
-syntax keyword javaScriptPropietaryObjects    ActiveXObject
-syntax keyword javaScriptPropietaryMethods    attachEvent detachEvent cancelBubble returnValue
+syntax keyword javaScriptPropietaryObjects        ActiveXObject
+syntax keyword javaScriptPropietaryMethods        attachEvent detachEvent cancelBubble returnValue
 
-syntax keyword javaScriptHtmlElemProperties className  clientHeight  clientLeft  clientTop  clientWidth  dir  href  id  innerHTML  lang  length  offsetHeight  offsetLeft  offsetParent  offsetTop  offsetWidth  scrollHeight  scrollLeft  scrollTop  scrollWidth  style  tabIndex  target  title
+syntax keyword javaScriptHtmlElemProperties       className  clientHeight  clientLeft  clientTop  clientWidth  dir  href  id  innerHTML  lang  length  offsetHeight  offsetLeft  offsetParent  offsetTop  offsetWidth  scrollHeight  scrollLeft  scrollTop  scrollWidth  style  tabIndex  target  title
 
-syntax keyword javaScriptEventListenerKeywords   blur  click  focus  mouseover mouseout load item
+syntax keyword javaScriptEventListenerKeywords    blur  click  focus  mouseover mouseout load item
 
-syntax keyword javaScriptEventListenerMethods   scrollIntoView  addEventListener  dispatchEvent  removeEventListener preventDefault stopPropagation
+syntax keyword javaScriptEventListenerMethods     scrollIntoView  addEventListener  dispatchEvent  removeEventListener preventDefault stopPropagation
 " }}}
 
 "" Programm Keywords
@@ -255,12 +255,28 @@ if version >= 508 || !exists("did_javascript_syn_inits")
   HiLink javaScriptDomElemAttrs         Label
   HiLink javaScriptDomElemFuncs         PreProc
 
-  HiLink javaScriptHtmlEvents           Special
   HiLink javaScriptHtmlElemAttrs        Label
   HiLink javaScriptHtmlElemFuncs        PreProc
 
   HiLink javaScriptCssStyles            Label
 
+
+  " Ajax Highlighting
+  HiLink javaScriptPropietaryObjects    Special
+  HiLink javaScriptAjaxObjects          Special
+  HiLink javaScriptBrowserObjects       Special
+  HiLink javaScriptDOMObjects           Special
+  HiLink javaScriptHtmlEvents           Special
+
+  HiLink javaScriptDOMProperties        Keyword
+  HiLink javaScriptAjaxProperties       Keyword
+  HiLink javaScriptHtmlElemProperties   Keyword
+  HiLink javaScriptEventListenerKeyword Keyword
+
+  HiLink javaScriptDOMMethods           Special
+  HiLink javaScriptAjaxMethods          Special
+
+  HiLink javaScriptFuncName             Constant
   delcommand HiLink
 endif
 

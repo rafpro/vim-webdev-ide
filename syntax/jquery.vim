@@ -4,6 +4,9 @@
 " Last Change: May 4th, 2011
 " Version:     0.5
 " URL:         http://api.jquery.com/
+" Modified:    Jose Elera Campana <jelera@gmail.com>
+
+" ADDED: Replaced the ^j keyword with jQuery
 
 if version < 600
   syntax clear
@@ -18,60 +21,60 @@ endif
 ru! syntax/javascript.vim
 unlet b:current_syntax
 
-syn match   jQuery          /jQuery\|\$/
+syn match   jQueryObject          /jQuery\|\$/
 
 
-syn match   jFunc           /\.\w\+(\@=/ contains=@jFunctions
+syn match   jQueryFunc           /\.\w\+(\@=/ contains=@jQueryFunctions
 
-syn cluster jFunctions      contains=jAjax,jAttributes,jCore,jCSS,jData,jDeferred,jDimensions,jEffects,jEvents,jManipulation,jMiscellaneous,jOffset,jProperties,jTraversing,jUtilities
-syn keyword jAjax           contained ajaxComplete ajaxError ajaxSend ajaxStart ajaxStop ajaxSuccess
-syn keyword jAjax           contained param serialize serializeArray
-syn keyword jAjax           contained ajax ajaxPrefilter ajaxSetup ajaxSettings ajaxTransport
-syn keyword jAjax           contained get getJSON getScript load post
-syn keyword jAttributes     contained addClass attr hasClass prop removeAttr removeClass removeProp toggleClass val
-syn keyword jCore           contained holdReady noConflict sub when
-syn keyword jCSS            contained css cssHooks
-syn keyword jData           contained clearQueue data dequeue hasData queue removeData
-syn keyword jDeferred       contained Deferred always done fail isRejected isResolved pipe promise reject rejectWith resolved resolveWith then
-syn keyword jDimensions     contained height innerHeight innerWidth outerHeight outerWidth width
-syn keyword jEffects        contained hide show toggle
-syn keyword jEffects        contained animate delay stop
-syn keyword jEffects        contained fadeIn fadeOut fadeTo fadeToggle
-syn keyword jEffects        contained slideDown slideToggle slideUp
-syn keyword jEvents         contained error resize scroll
-syn keyword jEvents         contained ready unload
-syn keyword jEvents         contained bind delegate die live one proxy trigger triggerHandler unbind undelegate
-syn keyword jEvents         contained Event currentTarget isDefaultPrevented isImmediatePropagationStopped isPropagationStopped namespace pageX pageY preventDefault relatedTarget result stopImmediatePropagation stopPropagation target timeStamp which
-syn keyword jEvents         contained blur change focus select submit
-syn keyword jEvents         contained focusin focusout keydown keypress keyup
-syn keyword jEvents         contained click dblclick hover mousedown mouseenter mouseleave mousemove mouseout mouseover mouseup
-syn keyword jManipulation   contained clone
-syn keyword jManipulation   contained unwrap wrap wrapAll wrapInner
-syn keyword jManipulation   contained append appendTo html preprend prependTo text
-syn keyword jManipulation   contained after before insertAfter insertBefore
-syn keyword jManipulation   contained detach empty remove
-syn keyword jManipulation   contained replaceAll replaceWith
-syn keyword jMiscellaneous  contained index size toArray
-syn keyword jOffset         contained offset offsetParent position scrollTop scrollLeft
-syn keyword jProperties     contained browser context fx.interval fx.off length selector support
-syn keyword jTraversing     contained eq filter first has is last map not slice
-syn keyword jTraversing     contained add andSelf contents end
-syn keyword jTraversing     contained children closest find next nextAll nextUntil parent parents parentsUntil prev prevAll prevUntil siblings
-syn keyword jUtilities      contained contains each extend globalEval grep inArray isArray isEmptyObject isFunction isPlainObject isWindow isXMLDoc makeArray merge noop now parseJSON parseXML trim type unique
+syn cluster jQueryFunctions      contains=jQueryAjax,jQueryAttributes,jQueryCore,jQueryCSS,jQueryData,jQueryDeferred,jQueryDimensions,jQueryEffects,jQueryEvents,jQueryManipulation,jQueryMiscellaneous,jQueryOffset,jQueryProperties,jQueryTraversing,jQueryUtilities
+syn keyword jQueryAjax           contained ajaxComplete ajaxError ajaxSend ajaxStart ajaxStop ajaxSuccess
+syn keyword jQueryAjax           contained param serialize serializeArray
+syn keyword jQueryAjax           contained ajax ajaxPrefilter ajaxSetup ajaxSettings ajaxTransport
+syn keyword jQueryAjax           contained gQueryet getJSON getScript load post
+syn keyword jQueryAttributes     contained addClass attr hasClass prop removeAttr removeClass removeProp toggleClass val
+syn keyword jQueryCore           contained holdReady noConflict sub when
+syn keyword jQueryCSS            contained css cssHooks
+syn keyword jQueryData           contained clearQueue data dequeue hasData queue removeData
+syn keyword jQueryDeferred       contained Deferred always done fail isRejected isResolved pipe promise reject rejectWith resolved resolveWith then
+syn keyword jQueryDimensions     contained height innerHeight innerWidth outerHeight outerWidth width
+syn keyword jQueryEffects        contained hide show toggle
+syn keyword jQueryEffects        contained animate delay stop
+syn keyword jQueryEffects        contained fadeIn fadeOut fadeTo fadeToggle
+syn keyword jQueryEffects        contained slideDown slideToggle slideUp
+syn keyword jQueryEvents         contained error resize scroll
+syn keyword jQueryEvents         contained ready unload
+syn keyword jQueryEvents         contained bind delegate die live one proxy trigger triggerHandler unbind undelegate
+syn keyword jQueryEvents         contained Event currentTarget isDefaultPrevented isImmediatePropagationStopped isPropagationStopped namespace pageX pageY preventDefault relatedTarget result stopImmediatePropagation stopPropagation target timeStamp which
+syn keyword jQueryEvents         contained blur change focus select submit
+syn keyword jQueryEvents         contained focusin focusout keydown keypress keyup
+syn keyword jQueryEvents         contained click dblclick hover mousedown mouseenter mouseleave mousemove mouseout mouseover mouseup
+syn keyword jQueryManipulation   contained clone
+syn keyword jQueryManipulation   contained unwrap wrap wrapAll wrapInner
+syn keyword jQueryManipulation   contained append appendTo html preprend prependTo text
+syn keyword jQueryManipulation   contained after before insertAfter insertBefore
+syn keyword jQueryManipulation   contained detach empty remove
+syn keyword jQueryManipulation   contained replaceAll replaceWith
+syn keyword jQueryMiscellaneous  contained index size toArray
+syn keyword jQueryOffset         contained offset offsetParent position scrollTop scrollLeft
+syn keyword jQueryProperties     contained browser context fx.interval fx.off length selector support
+syn keyword jQueryTraversing     contained eq filter first has is last map not slice
+syn keyword jQueryTraversing     contained add andSelf contents end
+syn keyword jQueryTraversing     contained children closest find next nextAll nextUntil parent parents parentsUntil prev prevAll prevUntil siblings
+syn keyword jQueryUtilities      contained contains each extend globalEval grep inArray isArray isEmptyObject isFunction isPlainObject isWindow isXMLDoc makeArray merge noop now parseJSON parseXML trim type unique
 
 
-syn region  javaScriptStringD          start=+"+  skip=+\\\\\|\\"+  end=+"\|$+  contains=javaScriptSpecial,@htmlPreproc,@jSelectors
-syn region  javaScriptStringS          start=+'+  skip=+\\\\\|\\'+  end=+'\|$+  contains=javaScriptSpecial,@htmlPreproc,@jSelectors
+syn region  javaScriptStringD          start=+"+  skip=+\\\\\|\\"+  end=+"\|$+  contains=javaScriptSpecial,@htmlPreproc,@jQuerySelectors
+syn region  javaScriptStringS          start=+'+  skip=+\\\\\|\\'+  end=+'\|$+  contains=javaScriptSpecial,@htmlPreproc,@jQuerySelectors
 
-syn cluster jSelectors      contains=jId,jClass,jOperators,jBasicFilters,jContentFilters,jVisibility,jChildFilters,jForms,jFormFilters
-syn match   jId             contained /#[0-9A-Za-z_\-]\+/
-syn match   jClass          contained /\.[0-9A-Za-z_\-]\+/
-syn match   jOperators      contained /*\|>\|+\|-\|~/
-syn match   jBasicFilters   contained /:\(animated\|eq\|even\|first\|focus\|gt\|header\|last\|lt\|not\|odd\)/
-syn match   jChildFilters   contained /:\(first\|last\|nth\|only\)-child/
-syn match   jContentFilters contained /:\(contains\|empty\|has\|parent\)/
-syn match   jForms          contained /:\(button\|checkbox\|checked\|disabled\|enabled\|file\|image\|input\|password\|radio\|reset\|selected\|submit\|text\)/
-syn match   jVisibility     contained /:\(hidden\|visible\)/
+syn cluster jQuerySelectors      contains=jQueryId,jQueryClass,jQueryOperators,jQueryBasicFilters,jQueryContentFilters,jQueryVisibility,jQueryChildFilters,jQueryForms,jQueryFormFilters
+syn match   jQueryId             contained /#[0-9A-Za-z_\-]\+/
+syn match   jQueryClass          contained /\.[0-9A-Za-z_\-]\+/
+syn match   jQueryOperators      contained /*\|>\|+\|-\|~/
+syn match   jQueryBasicFilters   contained /:\(animated\|eq\|even\|first\|focus\|gt\|header\|last\|lt\|not\|odd\)/
+syn match   jQueryChildFilters   contained /:\(first\|last\|nth\|only\)-child/
+syn match   jQueryContentFilters contained /:\(contains\|empty\|has\|parent\)/
+syn match   jQueryForms          contained /:\(button\|checkbox\|checked\|disabled\|enabled\|file\|image\|input\|password\|radio\|reset\|selected\|submit\|text\)/
+syn match   jQueryVisibility     contained /:\(hidden\|visible\)/
 
 
 " Define the default highlighting.
@@ -85,33 +88,33 @@ if version >= 508 || !exists("did_lisp_syntax_inits")
     command -nargs=+ HiLink hi def link <args>
   endif
 
-  HiLink jQuery          Constant
+  HiLink jQueryObject          Constant
 
-  HiLink jAjax           Function
-  HiLink jAttributes     Function
-  HiLink jCore           Function
-  HiLink jCSS            Function
-  HiLink jData           Function
-  HiLink jDeferred       Function
-  HiLink jDimensions     Function
-  HiLink jEffects        Function
-  HiLink jEvents         Function
-  HiLink jManipulation   Function
-  HiLink jMiscellaneous  Function
-  HiLink jOffset         Function
-  HiLink jProperties     Function
-  HiLink jTraversing     Function
-  HiLink jUtilities      Function
+  HiLink jQueryAjax           Function
+  HiLink jQueryAttributes     Function
+  HiLink jQueryCore           Function
+  HiLink jQueryCSS            Function
+  HiLink jQueryData           Function
+  HiLink jQueryDeferred       Function
+  HiLink jQueryDimensions     Function
+  HiLink jQueryEffects        Function
+  HiLink jQueryEvents         Function
+  HiLink jQueryManipulation   Function
+  HiLink jQueryMiscellaneous  Function
+  HiLink jQueryOffset         Function
+  HiLink jQueryProperties     Function
+  HiLink jQueryTraversing     Function
+  HiLink jQueryUtilities      Function
 
-  HiLink jId             Identifier
-  HiLink jClass          Constant
-  HiLink jOperators      Special
-  HiLink jBasicFilters   Statement
-  HiLink jContentFilters Statement
-  HiLink jVisibility     Statement
-  HiLink jChildFilters   Statement
-  HiLink jForms          Statement
-  HiLink jFormFilters    Statement
+  HiLink jQueryId             Identifier
+  HiLink jQueryClass          Constant
+  HiLink jQueryOperators      Special
+  HiLink jQueryBasicFilters   Statement
+  HiLink jQueryContentFilters Statement
+  HiLink jQueryVisibility     Statement
+  HiLink jQueryChildFilters   Statement
+  HiLink jQueryForms          Statement
+  HiLink jQueryFormFilters    Statement
 
   delcommand HiLink
 endif

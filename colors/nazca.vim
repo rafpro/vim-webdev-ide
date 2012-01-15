@@ -73,7 +73,7 @@ let colors_name = "nazca"
 "hi Example         guifg=NONE        guibg=NONE        gui=NONE      ctermfg=NONE        ctermbg=NONE        cterm=NONE
 
 " General colors
-hi  Normal       guifg=#ebe8de  guibg=#161617 gui=NONE      ctermfg=7     ctermbg=233  cterm=NONE
+hi  Normal       guifg=#ebe8de guibg=#161617 gui=NONE      ctermfg=7     ctermbg=232  cterm=NONE
 hi  NonText      guifg=#505050 guibg=#000000 gui=NONE      ctermfg=239   ctermbg=0    cterm=NONE
 
 hi  Cursor       guifg=#000000 guibg=#f0f000 gui=NONE      ctermfg=0     ctermbg=11   cterm=reverse
@@ -112,10 +112,10 @@ endif
 
 " Syntax highlighting
 hi Comment     guifg=#7C7C7C guibg=NONE    gui=NONE   ctermfg=8   ctermbg=NONE cterm=NONE
-hi String      guifg=#8ac891        guibg=NONE    gui=NONE   ctermfg=156 ctermbg=NONE cterm=NONE
-hi Number      guifg=#cc59d7  guibg=NONE    gui=NONE   ctermfg=207 ctermbg=NONE cterm=NONE
+hi String      guifg=#87D7AF guibg=NONE    gui=NONE   ctermfg=115 ctermbg=NONE cterm=NONE
+hi Number      guifg=#cc59d7 guibg=NONE    gui=NONE   ctermfg=207 ctermbg=NONE cterm=NONE
 
-hi Keyword     guifg=#9ed0ed  guibg=NONE    gui=NONE   ctermfg=117 ctermbg=NONE cterm=NONE
+hi Keyword     guifg=#9ed0ed guibg=NONE    gui=NONE   ctermfg=117 ctermbg=NONE cterm=NONE
 hi PreProc     guifg=#96CBFE guibg=NONE    gui=BOLD   ctermfg=117 ctermbg=NONE cterm=NONE
 hi Conditional guifg=#6699CC guibg=NONE    gui=NONE   ctermfg=68  ctermbg=NONE cterm=NONE
 
@@ -124,7 +124,7 @@ hi Constant    guifg=#99CC99 guibg=NONE    gui=ITALIC ctermfg=114 ctermbg=NONE c
 
 hi Identifier  guifg=#C6C5FE guibg=NONE    gui=NONE   ctermfg=189 ctermbg=NONE cterm=NONE
 hi Function    guifg=#FFD2A7 guibg=NONE    gui=BOLD   ctermfg=223 ctermbg=NONE cterm=BOLD
-hi Type        guifg=#e8e0a7        guibg=NONE    gui=BOLD   ctermfg=229 ctermbg=NONE cterm=BOLD
+hi Type        guifg=#af875f guibg=NONE    gui=BOLD   ctermfg=137 ctermbg=NONE cterm=BOLD
 hi Statement   guifg=#6699CC guibg=NONE    gui=NONE   ctermfg=68  ctermbg=NONE cterm=NONE
 
 hi Special     guifg=#E18964 guibg=NONE    gui=NONE   ctermfg=173 ctermbg=NONE cterm=NONE
@@ -223,7 +223,6 @@ hi markdownCode guifg=#a7bee4   gui=BOLD ctermfg=151 cterm=BOLD
 hi markdownCodeBlock guifg=#c5b1e4 ctermfg=182
 
 " Special for Javascript
-" TODO:  - Add colors to the cterm
 hi javaScriptBrowserObjects       guifg=#DBB6D2      gui=italic    ctermfg=182 cterm=NONE
 
 hi javaScriptDOMObjects           guifg=#DBB6D2      gui=BOLD      ctermfg=182 cterm=BOLD

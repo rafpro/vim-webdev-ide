@@ -7,8 +7,8 @@
 "    $ git clone
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 " VUNDLE AND PLUGINS {{{
+" Vundle Settings"{{{
 set nocompatible	" For Vim to be incompatible with the original Vi
 filetype off
 
@@ -19,7 +19,7 @@ call vundle#rc()
 "  let Vundle manage Vundle  "
 """"""""""""""""""""""""""""""
 Bundle 'gmarik/vundle'
-
+"}}}
 """""""""""""""""""""
 "  My Bundles here  "
 """""""""""""""""""""
@@ -63,6 +63,7 @@ Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'mikewest/vimroom'
 Bundle 'fholgado/minibufexpl.vim'
 Bundle 'rosenfeld/conque-term'
+Bundle 'jelera/vim-powerline'
 " Bundle 'SirVer/ultisnips'
 " Bundle 'othree/fecompressor.vim'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
@@ -88,21 +89,21 @@ exe "set path=".expand("$PATH")
 syntax on
 
 set nomodeline
-set autochdir	" Automatically use the current file's directory as the working directory
-set backspace=indent,eol,start	" Backspace will delete EOL chars, as well as indents
-set matchpairs+=<:>	" For characters that forms pairs for using % commands, this is for HTML Tags
-set shortmess=atToOI	" To avoid the 'Hit Enter' prompts caused by the file messages
-set iskeyword+=_,$,@,%,#	" Keywords are use to searching and recognized with many commands
-set spelllang=en_us,es	" English and Spanish for spelling
+set autochdir                                           " Automatically use the current file's directory as the working directory
+set backspace=indent,eol,start                          " Backspace will delete EOL chars, as well as indents
+set matchpairs+=<:>                                     " For characters that forms pairs for using % commands, this is for HTML Tags
+set shortmess=atToOI                                    " To avoid the 'Hit Enter' prompts caused by the file messages
+set iskeyword+=_,$,@,%,#                                " Keywords are use to searching and recognized with many commands
+set spelllang=en_us,es                                  " English and Spanish for spelling
 try
 	lang en_US
 catch
 endtry
-set autoread	" Set to autoread when a file is changed from the outside
-set mousehide	" Hide the mouse cursor when typing
-set report=0	" Reports always the amount of changed lines
-set viminfo='1000,f1,:1000,/1000,<1000,s100 " marks: 1000 files, history lines: 1000 lines, search queries: 1000 patterns, registers: 1000
-set directory=$HOME/.vimfiles/swapfiles,/var/tmp,/tmp,.	" Swap directory to store temporary files
+set autoread                                            " Set to autoread when a file is changed from the outside
+set mousehide                                           " Hide the mouse cursor when typing
+set report=0                                            " Reports always the amount of changed lines
+set viminfo='1000,f1,:1000,/1000,<1000,s100             " marks: 1000 files, history lines: 1000 lines, search queries: 1000 patterns, registers: 1000
+set directory=$HOME/.vimfiles/swapfiles,/var/tmp,/tmp,. " Swap directory to store temporary files
 set history=1000
 set undolevels=1000
 set confirm
@@ -150,8 +151,6 @@ set noerrorbells visualbell t_vb=
 " Wild menu (Autocompletion)" {{{
 set wildmenu
 set wildignore=.svn,CVS,.git,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.jpeg,*.png,*.xpm,*.gif
-" set wildignore+=*/.git/*,*/.hg/*,*/.svn/*   " for Linux/MacOSX
-" set wildignore+=.git\*,.hg\*,.svn\*         " for Windows
 set wildmode=full
 "}}}
 " Backup and Swap"{{{
@@ -160,10 +159,10 @@ set nowritebackup
 set noswapfile
 "}}}
 " Search Options"{{{
-set hlsearch	" Highlight search
-set incsearch	" Incremental search
-set magic " Set magic on, for regular expressions
-set ignorecase	" Searches are Non Case-sensitive
+set hlsearch   " Highlight search
+set incsearch  " Incremental search
+set magic      " Set magic on, for regular expressions
+set ignorecase " Searches are Non Case-sensitive
 set smartcase
 "}}}
 " Conflict markers {{{
@@ -185,195 +184,6 @@ match RedundantSpaces / \+\ze\t/
 set completeopt=menu,menuone,longest
 "}}}
 "}}}
-
-" STATUS LINE {{{
-" Functions {{{
-" Statusline updater {{{
-
-" Inspired by StatusLineHighlight by Ingo Karkat
-function! s:StatusLine(new_stl, type, current)
-	let current = (a:current ? "" : "NC")
-	let type = a:type
-	let new_stl = a:new_stl
-
-	" Prepare current buffer specific text
-	" Syntax: <CUR> ... </CUR>
-	let new_stl = substitute(new_stl, '<CUR>\(.\{-,}\)</CUR>', (a:current ? '\1' : ''), 'g')
-
-	" Prepare statusline colors
-	" Syntax: #[ ... ]
-	let new_stl = substitute(new_stl, '#\[\(\w\+\)\]', '%#StatusLine'.type.'\1'.current.'#', 'g')
-
-	" Prepare statusline arrows
-	" Syntax: [>] [>>] [<] [<<]
-	if s:round_stl
-		let new_stl = substitute(new_stl, '\[>\]',  'ǳ', 'g')
-		let new_stl = substitute(new_stl, '\[>>\]', 'ǵ', 'g')
-		let new_stl = substitute(new_stl, '\[<\]',  'ǲ', 'g')
-		let new_stl = substitute(new_stl, '\[<<\]', 'Ǵ', 'g')
-	else
-		let new_stl = substitute(new_stl, '\[>\]',  '┋', 'g')
-		let new_stl = substitute(new_stl, '\[>>\]', '░', 'g')
-		let new_stl = substitute(new_stl, '\[<\]',  '┋', 'g')
-		let new_stl = substitute(new_stl, '\[<<\]', '░', 'g')
-	endif
-
-	if &l:statusline ==# new_stl
-		" Statusline already set, nothing to do
-		return
-	endif
-
-	if empty(&l:statusline)
-		" No statusline is set, use my_stl
-		let &l:statusline = new_stl
-	else
-		" Check if a custom statusline is set
-		let plain_stl = substitute(&l:statusline, '%#StatusLine\w\+#', '', 'g')
-
-		if &l:statusline ==# plain_stl
-			" A custom statusline is set, don't modify
-			return
-		endif
-
-		" No custom statusline is set, use my_stl
-		let &l:statusline = new_stl
-	endif
-endfunction
-
-" }}}
-" Color dict parser {{{
-
-function! s:StatusLineColors(colors)
-	for type in keys(a:colors)
-		for name in keys(a:colors[type])
-			let colors = {'c': a:colors[type][name][0], 'nc': a:colors[type][name][1]}
-			let type = (type == 'NONE' ? '' : type)
-			let name = (name == 'NONE' ? '' : name)
-
-			if exists("colors['c'][0]")
-				exec 'hi StatusLine'.type.name.' ctermbg='.colors['c'][0].' ctermfg='.colors['c'][1].' cterm='.colors['c'][2].' guibg='.colors['c'][3].' guifg='.colors['c'][4].' gui='.colors['c'][5]
-			endif
-
-			if exists("colors['nc'][0]")
-				exec 'hi StatusLine'.type.name.'NC ctermbg='.colors['nc'][0].' ctermfg='.colors['nc'][1].' cterm='.colors['nc'][2].' guibg='.colors['nc'][3].' guifg='.colors['nc'][4].' gui='.colors['nc'][5]
-			endif
-		endfor
-	endfor
-endfunction
-
-" }}}
-" }}}
-" Default statusline {{{
-
-let g:default_stl  = ""
-let g:default_stl .= "<CUR>#[Mode] %{&paste ? 'PASTE [>] ' : ''}%{substitute(mode(), '', '^V', 'g')} #[ModeS][>>]</CUR>"
-let g:default_stl .= "#[Branch] %(%{substitute(fugitive#statusline(), 'GIT(\\([a-z0-9\\-_\\./:]\\+\\))', '∓ \\1', 'gi')}#[BranchS] [>] %)" " Git branch
-let g:default_stl .= "#[ModFlag]%{&readonly ? '[RO] ' : ''}" " RO flag
-let g:default_stl .= "#[ModFlag]%(%M %)" " Modified flag
-let g:default_stl .= "#[FileName]%t " " File name
-let g:default_stl .= "[%{FileSize()}] " " File size
-let g:default_stl .= "#[FileNameS][>>]" " Separator
-let g:default_stl .= " %{CurDir()} " " Current Working Directory
-let g:default_stl .= "<CUR>#[Error]%(%{substitute(SyntasticStatuslineFlag(), '\\[Syntax: line:\\(\\d\\+\\) \\((\\(\\d\\+\\))\\)\\?\\]', '[>][>][>] SYNTAX № \\1 \\2 [>][>][>]', 'i')} %)</CUR>" " Syntastic error flag
-let g:default_stl .= "#[BufFlag]%(%H%W %)" " HLP,PRV flags
-let g:default_stl .= "#[FileNameS][>>]" " Separator
-let g:default_stl .= "#[FunctionName] " " Padding/HL group
-let g:default_stl .= "%<" " Truncate right
-" let g:default_stl .= "%{rvm#statusline()}" " RVM info
-let g:default_stl .= "<CUR>%(%{cfi#format('%s', '')} %)</CUR>" " Function name from Ctags
-let g:default_stl .= "%= " " Right align
-let g:default_stl .= "%{StatuslineCurrentHighlight()}  " " Right align
-let g:default_stl .= "<CUR>#[FileFormat]%{&fileformat} </CUR>" " File format
-let g:default_stl .= "<CUR>#[FileEncoding]%{(&fenc == '' ? &enc : &fenc)} </CUR>" " File encoding
-let g:default_stl .= "<CUR>#[Separator][<] ₣₮ #[FileType]%{strlen(&ft) ? &ft : 'n/a'} </CUR>" " File type
-let g:default_stl .= "#[LinePercentS][<<]#[LinePercent] %p%% " " Line/column/virtual column, Line percentage
-let g:default_stl .= "#[LineNumberS][<<]#[LineNumber] № %l#[LineColumn]:%c%V " " Line/column/virtual column, Line percentage
-let g:default_stl .= "%{exists('g:synid') && g:synid ? '[<] '.synIDattr(synID(line('.'), col('.'), 1), 'name').' ' : ''}" " Current syntax group
-
-function! FileSize()
-	let bytes = getfsize(expand("%:p"))
-	if bytes <= 0
-		return ""
-	endif
-	if bytes < 1024
-		return bytes . " Bytes"
-	else
-		return (bytes / 1024) . "kB"
-	endif
-endfunction
-
-"return the syntax highlight group under the cursor ''
-function! StatuslineCurrentHighlight()
-	let name = synIDattr(synID(line('.'),col('.'),1),'name')
-	if name == ''
-		return ''
-	else
-		return '[' . name . ']'
-	endif
-endfunction
-
-function! CurDir()
-	if has('mac')
-		let curdir = substitute(getcwd(), '/Users/jose/', "~/", "g")
-	endif
-	if has('unix')
-		let curdir = substitute(getcwd(), '/home/jose/', "~/", "g")
-	endif
-	return curdir
-endfunction
-" }}}
-" Color dict {{{
-
-let s:statuscolors = {
-			\   'NONE': {
-			\   'NONE'         : [[ 236, 231, 'bold', '#303030', '#ffffff', 'bold'], [ 232, 244, 'none', '#080808', '#808080', 'none']]
-			\ }
-			\ , 'Normal': {
-			\   'Mode'         : [[ 214, 235, 'bold', '#ffaf00', '#262626', 'bold'], [                 ]]
-			\ , 'ModeS'        : [[ 214, 240, 'bold', '#ffaf00', '#585858', 'bold'], [                 ]]
-			\ , 'Branch'       : [[ 240, 250, 'none', '#585858', '#bcbcbc', 'none'], [ 234, 239, 'none', '#1c1c1c', '#4e4e4e', 'none']]
-			\ , 'BranchS'      : [[ 240, 246, 'none', '#585858', '#949494', 'none'], [ 234, 239, 'none', '#1c1c1c', '#4e4e4e', 'none']]
-			\ , 'FileName'     : [[ 240, 231, 'bold', '#585858', '#ffffff', 'bold'], [ 234, 244, 'none', '#1c1c1c', '#808080', 'none']]
-			\ , 'FileNameS'    : [[ 240, 236, 'bold', '#585858', '#303030', 'bold'], [ 234, 232, 'none', '#1c1c1c', '#080808', 'none']]
-			\ , 'Error'        : [[ 240, 202, 'bold', '#585858', '#ff5f00', 'bold'], [ 234, 239, 'none', '#1c1c1c', '#4e4e4e', 'none']]
-			\ , 'ModFlag'      : [[ 240, 196, 'bold', '#585858', '#ff0000', 'bold'], [ 234, 239, 'none', '#1c1c1c', '#4e4e4e', 'none']]
-			\ , 'BufFlag'      : [[ 240, 250, 'none', '#585858', '#bcbcbc', 'none'], [ 234, 239, 'none', '#1c1c1c', '#4e4e4e', 'none']]
-			\ , 'FunctionName' : [[ 236, 247, 'none', '#303030', '#9e9e9e', 'none'], [ 232, 239, 'none', '#080808', '#4e4e4e', 'none']]
-			\ , 'FileFormat'   : [[ 236, 244, 'none', '#303030', '#808080', 'none'], [ 232, 239, 'none', '#080808', '#4e4e4e', 'none']]
-			\ , 'FileEncoding' : [[ 236, 244, 'none', '#303030', '#808080', 'none'], [ 232, 239, 'none', '#080808', '#4e4e4e', 'none']]
-			\ , 'Separator'    : [[ 236, 242, 'none', '#303030', '#6c6c6c', 'none'], [ 232, 239, 'none', '#080808', '#4e4e4e', 'none']]
-			\ , 'FileType'     : [[ 236, 248, 'none', '#303030', '#a8a8a8', 'none'], [ 232, 239, 'none', '#080808', '#4e4e4e', 'none']]
-			\ , 'LinePercentS' : [[ 240, 236, 'none', '#585858', '#303030', 'none'], [ 234, 232, 'none', '#1c1c1c', '#080808', 'none']]
-			\ , 'LinePercent'  : [[ 240, 250, 'none', '#585858', '#bcbcbc', 'none'], [ 234, 239, 'none', '#1c1c1c', '#4e4e4e', 'none']]
-			\ , 'LineNumberS'  : [[ 252, 240, 'bold', '#d0d0d0', '#585858', 'bold'], [ 234, 234, 'none', '#1c1c1c', '#1c1c1c', 'none']]
-			\ , 'LineNumber'   : [[ 252, 236, 'bold', '#d0d0d0', '#303030', 'bold'], [ 234, 244, 'none', '#1c1c1c', '#808080', 'none']]
-			\ , 'LineColumn'   : [[ 252, 240, 'none', '#d0d0d0', '#585858', 'none'], [ 234, 239, 'none', '#1c1c1c', '#4e4e4e', 'none']]
-			\ }
-			\ , 'Insert': {
-			\   'Mode'         : [[ 153,  23, 'bold', '#afd7ff', '#005f5f', 'bold'], [                 ]]
-			\ , 'ModeS'        : [[ 153,  31, 'bold', '#afd7ff', '#0087af', 'bold'], [                 ]]
-			\ , 'Branch'       : [[  31, 117, 'none', '#0087af', '#87d7ff', 'none'], [                 ]]
-			\ , 'BranchS'      : [[  31, 117, 'none', '#0087af', '#87d7ff', 'none'], [                 ]]
-			\ , 'FileName'     : [[  31, 231, 'bold', '#0087af', '#ffffff', 'bold'], [                 ]]
-			\ , 'FileNameS'    : [[  31,  24, 'bold', '#0087af', '#005f87', 'bold'], [                 ]]
-			\ , 'Error'        : [[  31, 202, 'bold', '#0087af', '#ff5f00', 'bold'], [                 ]]
-			\ , 'ModFlag'      : [[  31, 196, 'bold', '#0087af', '#ff0000', 'bold'], [                 ]]
-			\ , 'BufFlag'      : [[  31,  75, 'none', '#0087af', '#5fafff', 'none'], [                 ]]
-			\ , 'FunctionName' : [[  24, 117, 'none', '#005f87', '#87d7ff', 'none'], [                 ]]
-			\ , 'FileFormat'   : [[  24,  75, 'none', '#005f87', '#5fafff', 'none'], [                 ]]
-			\ , 'FileEncoding' : [[  24,  75, 'none', '#005f87', '#5fafff', 'none'], [                 ]]
-			\ , 'Separator'    : [[  24,  37, 'none', '#005f87', '#00afaf', 'none'], [                 ]]
-			\ , 'FileType'     : [[  24,  81, 'none', '#005f87', '#5fd7ff', 'none'], [                 ]]
-			\ , 'LinePercentS' : [[  31,  24, 'none', '#0087af', '#005f87', 'none'], [                 ]]
-			\ , 'LinePercent'  : [[  31, 117, 'none', '#0087af', '#87d7ff', 'none'], [                 ]]
-			\ , 'LineNumberS'  : [[ 117,  31, 'bold', '#87d7ff', '#0087af', 'bold'], [                 ]]
-			\ , 'LineNumber'   : [[ 117,  23, 'bold', '#87d7ff', '#005f5f', 'bold'], [                 ]]
-			\ , 'LineColumn'   : [[ 117,  31, 'none', '#87d7ff', '#0087af', 'none'], [                 ]]
-			\ }
-			\ }
-
-" }}}
-" }}}
 
 " FOLDING {{{
 " General Folding Options "{{{
@@ -566,34 +376,14 @@ au FileType javascript call JavaScriptFold()
 " }}}
 
 " USER INTERFACE {{{
-" Statusline highlighting {{{
-
-augroup StatusLineHighlight
-	autocmd!
-
-	let s:round_stl = 0
-
-	au ColorScheme * call <SID>StatusLineColors(s:statuscolors)
-	au BufEnter,BufWinEnter,WinEnter,CmdwinEnter,CursorHold,BufWritePost,InsertLeave * call <SID>StatusLine((exists('b:stl') ? b:stl : g:default_stl), 'Normal', 1)
-	au BufLeave,BufWinLeave,WinLeave,CmdwinLeave * call <SID>StatusLine((exists('b:stl') ? b:stl : g:default_stl), 'Normal', 0)
-	au InsertEnter,CursorHoldI * call <SID>StatusLine((exists('b:stl') ? b:stl : g:default_stl), 'Insert', 1)
-augroup END
-
-" }}}
 " Look and Feel settings {{{
-
 set background=dark
-
 if has('gui_running')
-
 	" For gVim / MacVim
 	set guioptions-=T
 	set guioptions+=c
 	set linespace=6 "Space betweeen lines
-
-
 	colorscheme nazca
-
 	" Font Selection
 	if has('mac')
 		" For MacVim
@@ -602,11 +392,8 @@ if has('gui_running')
 		" For Linux gVim
 		set guifont=DejaVu\ Sans\ Mono\ 10
 	endif
-
 else
-
 	" For Terminal Vim
-
 	if $TERM =~ '^xterm'
 		set t_Co=256
 		colorscheme nazca
@@ -623,9 +410,7 @@ else
 		set t_Co=16
 		colorscheme pablo
 	endif
-
 endif
-
 " }}}
 " Use custom fillchars/listchars/showbreak icons {{{
 set fillchars=vert:║,diff:∓
@@ -644,29 +429,31 @@ if exists('+breakindent')
 endif
 "}}}
 " General UI Options"{{{
-set laststatus=2	"Always show the statusline
-set number	" Show Line Numbers
-set numberwidth=4	" Width value of the Line Number Column
+set laststatus=2       " Always show the statusline
+" set number           " Show Line Numbers
+set relativenumber     " Show Relative Line Numbers
+set numberwidth=4      " Width value of the Line Number Column
 set ruler
 
-set showmatch " Shows matching brackets when text indicator is over them
-set scrolloff=5 " Show 5 lines of context around the cursor
+set showmatch          " Shows matching brackets when text indicator is over them
+set scrolloff=5        " Show 5 lines of context around the cursor
 set sidescrolloff=20
-set lazyredraw	" The screen won't be redrawn unless actions took place
+set lazyredraw         " The screen won't be redrawn unless actions took place
 set cursorline
 set scrolljump=10
 set showcmd
-set ttyfast " Improves redrawing for newer computers
+set ttyfast            " Improves redrawing for newer computers
 " set virtualedit=all
 set pumheight=10
 set diffopt+=context:3
-set nostartofline	" when moving thru the lines, the cursor will try to stay in the previous columns
+set nostartofline      " when moving thru the lines, the cursor will try to stay in the previous columns
 "}}}
 " }}}
 
 " LAYOUT / TEXT FORMATTING {{{
 " Formatting Options "{{{
 set wrap	" Soft Wrap in all files, while hard wrap can be allow by filetype
+set linebreak " It maintains the whole words when wrapping
 
 " set formatoptions=croqwanl1
 " c = auto wrap comments using textwidth
@@ -681,7 +468,6 @@ set wrap	" Soft Wrap in all files, while hard wrap can be allow by filetype
 
 " This is the width of the text after the filter (par) goes thru the file
 " set textwidth=79
-set linebreak
 
 " }}}
 " Indentation"{{{
@@ -699,18 +485,6 @@ set noexpandtab
 
 " MAPPINGS {{{
 " General {{{
-" Move around through wrapped lines {{{
-vmap <C-j> gj
-vmap <C-k> gk
-vmap <C-4> g$
-vmap <C-6> g^
-vmap <C-0> g^
-nmap <C-j> gj
-nmap <C-k> gk
-nmap <C-4> g$
-nmap <C-6> g^
-nmap <C-0> g^
-" }}}
 " Vertically split window and select it  {{{
 nnoremap <Leader>v <C-w>v<C-w>l
 " }}}
@@ -767,17 +541,14 @@ nnoremap <silent> <Right>  :bp<CR>
 " }}}
 " Toggle between 'Relative' and 'Absolute' line numbers (only Vim >7.3{{{
 " by aj3423
-if version >= 730
-	map <leader>ln :call g:ToggleNuMode()<cr>
-	function! g:ToggleNuMode()
-		if(&rnu == 1)
-			set nu
-		else
-			set rnu
-		endif
-	endfunc
-endif
-
+map <leader>ln :call g:ToggleNuMode()<cr>
+function! g:ToggleNuMode()
+	if(&rnu == 1)
+		set nu
+	else
+		set rnu
+	endif
+endfunc
 " }}}
 " Show Invisible Characters {{{
 nmap <Leader>l :set list!<CR>
@@ -809,6 +580,8 @@ vmap = =gv
 " Switch the PWD to open buffer's {{{
 nmap <Leader>cd :cd %:p:h<CR>
 " }}}
+" Edit files that are in the main project root dir
+nmap <Leader>ew :e <C-R>=expand("%:p:h")."/"<CR>
 " }}}
 " Editing {{{
 " Quick edit .vimrc and the Nazca Colorscheme {{{
@@ -1019,7 +792,7 @@ augroup END " }}}
 augroup Formatting " {{{
 	autocmd!
 	" Fix gitcommit formatting {{{
-	au FileType gitcommit setl formatoptions+=t formatoptions-=l textwidth=72 colorcolumn=72
+	au FileType gitcommit setl formatoptions+=at formatoptions-=l textwidth=72 colorcolumn=72
 	" }}}
 	" Format plain text and e-mails correctly {{{
 	au BufNewFile,BufRead *.txt setl ft=text
@@ -1029,7 +802,7 @@ augroup END" }}}
 augroup Whitespace " {{{
 	autocmd!
 	" Remove trailing whitespace from selected filetypes {{{
-	function! s:StripTrailingWhitespace()
+	function! <SID>StripTrailingWhitespace()
 		" Preparation: save the last search, and curson position"
 		let _s=@/
 		let l = line(".")
@@ -1042,28 +815,6 @@ augroup Whitespace " {{{
 	endfunction
 
 	au FileType html,css,sass,javascript,php,python,ruby,sql,vim au BufWritePre <buffer> :silent! call <SID>StripTrailingWhitespace()
-	" }}}
-augroup END " }}}
-augroup CustomStatuslines " {{{
-	autocmd!
-	" Tagbar {{{
-	au BufEnter * if bufname("%") == "Tagbar"
-				\ | let b:stl = "#[Branch] TAGBAR#[BranchS] [>] #[FileName]%<Code Navigation #[FileNameS][>>]%* %="
-				\ | endif
-	" }}}
-	" Gundo {{{
-	au BufEnter * if bufname("%") == "__Gundo__"
-				\ | let b:stl = "#[Branch] GUNDO#[BranchS] [>] #[FileName]%<Undo tree #[FileNameS][>>]%* %="
-				\ | endif
-
-	au BufEnter * if bufname("%") == "__Gundo_Preview__"
-				\ | let b:stl = "#[Branch] GUNDO#[BranchS] [>] #[FileName]%<Diff preview #[FileNameS][>>]%* %="
-				\ | endif
-	" }}}
-	" Syntastic location list {{{
-	au BufEnter * if bufname("%") == "[Location List]"
-				\ | let b:stl = "#[FileName]%< Location List #[FileNameS][>>]%* %="
-				\ | endif
 	" }}}
 augroup END " }}}
 augroup Filetype Specific " {{{
@@ -1140,7 +891,7 @@ augroup Filetype Specific " {{{
 
 	" }}}
 	" Javascript {{{
-	au BufNewFile,BufRead *.js setlocal ft javascript
+	" au BufNewFile,BufRead *.js setlocal ft javascript
 	au BufNewFile,BufRead *.jsm setlocal ft javascript
 	au BufNewFile,BufRead Jakefile setlocal ft javascript
 	au FileType javascript setlocal ts=4 sts=4 sw=4 noexpandtab
@@ -1350,6 +1101,13 @@ iab llorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eius
 	" automatically delete fugitive buffers when leaving them
 	autocmd BufReadPost fugitive://* setlocal bufhidden=delete
 	" }}}
-	"  Sparkup
+	"  Sparkup"{{{
 	imap <C-y> <ESC><C-e>
+	"}}}
+	" Command-T"{{{
+	map <C-t> :CommandT<cr>
+	"}}}
+	"ConqueTerm
+	nmap <Leader>sh :ConqueTermSplit zsh<CR>
 "}}}
+let g:Powerline_symbols = 'fancy'
