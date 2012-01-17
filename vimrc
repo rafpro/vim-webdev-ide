@@ -38,9 +38,9 @@ Bundle 'tpope/vim-rhubarb'
 Bundle 'tpope/vim-speeddating'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-ragtag'
-" Bundle 'mattn/zencoding-vim'
 Bundle 'mileszs/ack.vim'
 Bundle 'DataWraith/auto_mkdir'
+Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'sjl/gundo.vim'
 Bundle 'Shougo/neocomplcache'
 Bundle 'scrooloose/nerdtree'
@@ -64,9 +64,11 @@ Bundle 'mikewest/vimroom'
 Bundle 'fholgado/minibufexpl.vim'
 Bundle 'rosenfeld/conque-term'
 Bundle 'jelera/vim-powerline'
+Bundle 'jelera/vim-javascript-syntax'
+Bundle 'jelera/vim-nazca-colorscheme'
 " Bundle 'SirVer/ultisnips'
 " Bundle 'othree/fecompressor.vim'
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+" Bundle 'mattn/zencoding-vim'
 "}}}
 "  Vim-scripts repos {{{
 Bundle 'TaskList.vim'
