@@ -454,259 +454,262 @@ set noexpandtab
 
 " MAPPINGS {{{
 " General "{{{
-" Vertically split window and select it  {{{
-nnoremap <Leader>v <C-w>v<C-w>l
-" }}}
-" Clear search highlighting {{{
-nnoremap <silent> <Leader><space> :nohlsearch<CR>
-" }}}
-" Buffers and Tabs {{{
-"Buffer Configuration {{{
-" Specify the behaviour when switching between buffers
-try
-	set switchbuf=usetab
-	set stal=2
-catch
-endtry
+	" Vertically split window and select it  {{{
+	nnoremap <Leader>v <C-w>v<C-w>l
+	" }}}
+	" Clear search highlighting {{{
+	nnoremap <silent> <Leader><space> :nohlsearch<CR>
+	" }}}
+	" Buffers and Tabs {{{
+	"Buffer Configuration {{{
+	" Specify the behaviour when switching between buffers
+	try
+		set switchbuf=usetab
+		set stal=2
+	catch
+	endtry
 
-map <Leader>bc :Bclose<CR>
-command! Bclose call <SID>BufcloseCloseIt()
-function! <SID>BufcloseCloseIt()
-	let l:currentBufNum = bufnr("%")
-	let l:alternateBufNum = bufnr("#")
+	map <Leader>bc :Bclose<CR>
+	command! Bclose call <SID>BufcloseCloseIt()
+	function! <SID>BufcloseCloseIt()
+		let l:currentBufNum = bufnr("%")
+		let l:alternateBufNum = bufnr("#")
 
-	if buflisted(l:alternateBufNum)
-		buffer #
-	else
-		bnext
-	endif
+		if buflisted(l:alternateBufNum)
+			buffer #
+		else
+			bnext
+		endif
 
-	if bufnr("%") == l:currentBufNum
-		new
-	endif
+		if bufnr("%") == l:currentBufNum
+			new
+		endif
 
-	if buflisted(l:currentBufNum)
-		execute("bdelete! ".l:currentBufNum)
-	endif
-endfunction
+		if buflisted(l:currentBufNum)
+			execute("bdelete! ".l:currentBufNum)
+		endif
+	endfunction
 
-" }}}
-" Tab configuration {{{
-map <leader>tb :tabnew<cr>
-map <leader>te :tabedit
-map <leader>tc :tabclose<cr>
-map <leader>to :tabonly<cr>
-map <leader>tn :tabnext<cr>
-map <leader>tp :tabprevious<cr>
-map <leader>tf :tabfirst<cr>
-map <leader>tl :tablast<cr>
-map <leader>tm :tabmove
+	" }}}
+	" Tab configuration {{{
+	map <leader>tb :tabnew<cr>
+	map <leader>te :tabedit
+	map <leader>tc :tabclose<cr>
+	map <leader>to :tabonly<cr>
+	map <leader>tn :tabnext<cr>
+	map <leader>tp :tabprevious<cr>
+	map <leader>tf :tabfirst<cr>
+	map <leader>tl :tablast<cr>
+	map <leader>tm :tabmove
 
-" }}}
-" }}}
-" Repurpose left and right arrow keys to move between the buffers {{{
-nnoremap <silent> <Left>   :bn<CR>
-nnoremap <silent> <Right>  :bp<CR>
-" }}}
-" Toggle between 'Relative' and 'Absolute' line numbers (only Vim >7.3{{{
-" by aj3423
-map <leader>ln :call g:ToggleNuMode()<cr>
-function! g:ToggleNuMode()
-	if(&rnu == 1)
-		set nu
-	else
-		set rnu
-	endif
-endfunc
-" }}}
-" Show Invisible Characters {{{
-nmap <Leader>l :set list!<CR>
-" }}}
-" Toggle Foldings with the space bar {{{
-nnoremap <Space> za
-" }}}
-" Using vimdiff to track changes {{{
+	" }}}
+	" }}}
+	" Repurpose left and right arrow keys to move between the buffers {{{
+	nnoremap <silent> <Left>   :bn<CR>
+	nnoremap <silent> <Right>  :bp<CR>
+	" }}}
+	" Toggle between 'Relative' and 'Absolute' line numbers (only Vim >7.3{{{
+	" by aj3423
+	map <leader>ln :call g:ToggleNuMode()<cr>
+	function! g:ToggleNuMode()
+		if(&rnu == 1)
+			set nu
+		else
+			set rnu
+		endif
+	endfunc
+	" }}}
+	" Show Invisible Characters {{{
+	nmap <Leader>l :set list!<CR>
+	" }}}
+	" Toggle Foldings with the space bar {{{
+	nnoremap <Space> za
+	" }}}
+	" Using vimdiff to track changes {{{
 
-" nmap <Leader>wd :call DiffWithFileFromDisk()<CR><Leader>u
+	" nmap <Leader>wd :call DiffWithFileFromDisk()<CR><Leader>u
 
-" function! DiffWithFileFromDisk()
-" let filename=expand('%')
-" let diffname = filename.'.fileFromBuffer'
-" exec 'saveas! '.diffname
-" diffthis
-" vsplit
-" exec 'edit '.filename
-" diffthis
-" endfunction
+	" function! DiffWithFileFromDisk()
+	" let filename=expand('%')
+	" let diffname = filename.'.fileFromBuffer'
+	" exec 'saveas! '.diffname
+	" diffthis
+	" vsplit
+	" exec 'edit '.filename
+	" diffthis
+	" endfunction
 
-" }}}
-" Indent visual selected code without unselecting {{{
-" As seen in vimcasts.org
-vmap > >gv
-vmap < <gv
-vmap = =gv
-" }}}
-" Switch the PWD to open buffer's {{{ nmap <Leader>cd :cd %:p:h<CR>
-" }}}
-" Edit files that are in the main project root dir"{{{
-nmap <Leader>ew :e <C-R>=expand("%:p:h")."/"<CR>
-"}}}
+	" }}}
+	" Indent visual selected code without unselecting {{{
+	" As seen in vimcasts.org
+	vmap > >gv
+	vmap < <gv
+	vmap = =gv
+	" }}}
+	" Switch the PWD to open buffer's {{{ nmap <Leader>cd :cd %:p:h<CR>
+	" }}}
+	" Edit files that are in the main project root dir"{{{
+	nmap <Leader>ew :e <C-R>=expand("%:p:h")."/"<CR>
+	"}}}
+	" F7 will call MAKEPRG"{{{
+	map <F7> :make<CR>
+	"}}}
 "}}}
 " Editing {{{
-" Quick edit .vimrc and the Nazca Colorscheme {{{
-nnoremap <silent> <Leader>vim :edit   $MYVIMRC<CR>
-nnoremap <silent> <Leader>sv :source $MYVIMRC<CR>
-nnoremap <silent> <Leader>naz :e $HOME/.vim/colors/nazca.vim<CR>
-" }}}
-" Strip trailing whitespace {{{
-nnoremap <leader>nw :%s/\s\+$//e<cr>:let @/=''<CR>
-" }}}
-" Autocomplete {} indent and reposition of the cursor in the middle {{{
-" inoremap {      {}<Left>
-"inoremap {<CR>  {<CR>}<Esc>O
-""inoremap {{     {
-"inoremap {}     {}
+	" Quick edit .vimrc and the Nazca Colorscheme {{{
+	nnoremap <silent> <Leader>vim :edit   $MYVIMRC<CR>
+	nnoremap <silent> <Leader>sv :source $MYVIMRC<CR>
+	nnoremap <silent> <Leader>naz :e $HOME/.vim/colors/nazca.vim<CR>
+	" }}}
+	" Strip trailing whitespace {{{
+	nnoremap <leader>nw :%s/\s\+$//e<cr>:let @/=''<CR>
+	" }}}
+	" Autocomplete {} indent and reposition of the cursor in the middle {{{
+	" inoremap {      {}<Left>
+	"inoremap {<CR>  {<CR>}<Esc>O
+	""inoremap {{     {
+	"inoremap {}     {}
 
-"inoremap (      ()<Left>
-"inoremap (<CR>  (<CR>)<Esc>O
-""inoremap ((     (
-"inoremap ()     ()
+	"inoremap (      ()<Left>
+	"inoremap (<CR>  (<CR>)<Esc>O
+	""inoremap ((     (
+	"inoremap ()     ()
 
-"inoremap [      []<Left>
-"inoremap [<CR>  [<CR>]<Esc>O
-""inoremap [[     [
-"inoremap []     []
+	"inoremap [      []<Left>
+	"inoremap [<CR>  [<CR>]<Esc>O
+	""inoremap [[     [
+	"inoremap []     []
 
-" Taken from https://github.com/acustodioo/vim-enter-indent
-func! EnterIndent()
-	let EnterIndentActive = [
-				\ {'left' : '[\{\[\(]','right' : '[\)\]\}]'},
-				\ {'left' : '<[^>]*>', 'right' : '</[^>]*>'},
-				\ {'left' : '<?\(php\)\?', 'right' : '?>'},
-				\ {'left' : '<%', 'right' : '%>'},
-				\ {'left' : '\[[^\]]*\]', 'right' : '\[/[^\]]*\]'},
-				\ {'left' : '<!--', 'right' : '-->'},
-				\ {'left' : '\(#\)\?{[^\}]*\}', 'right' : '\(#\)\?{[^\}]*\}'},
-				\ ]
+	" Taken from https://github.com/acustodioo/vim-enter-indent
+	func! EnterIndent()
+		let EnterIndentActive = [
+					\ {'left' : '[\{\[\(]','right' : '[\)\]\}]'},
+					\ {'left' : '<[^>]*>', 'right' : '</[^>]*>'},
+					\ {'left' : '<?\(php\)\?', 'right' : '?>'},
+					\ {'left' : '<%', 'right' : '%>'},
+					\ {'left' : '\[[^\]]*\]', 'right' : '\[/[^\]]*\]'},
+					\ {'left' : '<!--', 'right' : '-->'},
+					\ {'left' : '\(#\)\?{[^\}]*\}', 'right' : '\(#\)\?{[^\}]*\}'},
+					\ ]
 
-	let GetLine = getline('.')
-	let ColNow = col('.') - 1
+		let GetLine = getline('.')
+		let ColNow = col('.') - 1
 
-	let RightGetLine = substitute(
-				\ strpart(GetLine, ColNow, col('$')),
-				\ '^[ ]*', '', ''
-				\ )
+		let RightGetLine = substitute(
+					\ strpart(GetLine, ColNow, col('$')),
+					\ '^[ ]*', '', ''
+					\ )
 
-	if RightGetLine == "" | call feedkeys("\<CR>", 'n') | return '' | endif
+		if RightGetLine == "" | call feedkeys("\<CR>", 'n') | return '' | endif
 
-	for value in EnterIndentActive
-		if matchstr(RightGetLine, '^' . value.right) != ""
-			let EnterIndentRun = 1 | break
+		for value in EnterIndentActive
+			if matchstr(RightGetLine, '^' . value.right) != ""
+				let EnterIndentRun = 1 | break
+			endif
+		endfor
+
+		if !exists('EnterIndentRun') | call feedkeys("\<CR>", 'n') | return '' | endif
+
+		let LeftGetLine = substitute(
+					\ strpart(GetLine, 0, ColNow),
+					\ '[ ]*$', '', ''
+					\ )
+
+		if matchstr(LeftGetLine, value.left . '$') == ""
+			call feedkeys("\<CR>", 'n') | return ''
 		endif
-	endfor
 
-	if !exists('EnterIndentRun') | call feedkeys("\<CR>", 'n') | return '' | endif
+		let LineNow = line('.')
+		let Indent = substitute(LeftGetLine, '^\([ |\t]*\).*$', '\1', '')
 
-	let LeftGetLine = substitute(
-				\ strpart(GetLine, 0, ColNow),
-				\ '[ ]*$', '', ''
-				\ )
+		call setline(LineNow, LeftGetLine)
+		call append(LineNow, Indent . RightGetLine)
+		call append(LineNow, Indent)
+		call feedkeys("\<Down>\<Esc>\A\<Tab>", 'n')
 
-	if matchstr(LeftGetLine, value.left . '$') == ""
-		call feedkeys("\<CR>", 'n') | return ''
+		return ''
+	endf
+
+	inoremap <silent> <cr> <c-r>=EnterIndent()<cr>
+	" }}}
+	" Code Comment Banners {{{
+	autocmd FileType vim map <leader>ccb I"<DEL>  <ESC>A  "<DEL><ESC>yyp0lv$hhr"yykPjj
+	autocmd FileType javascript,php,c map <leader>ccb I//  <ESC>A  //<ESC>yyp0llv$hhhr-yykPjj
+	autocmd FileType python,ruby,sh,zsh map <leader>ccb I#  <ESC>A  #<ESC>yyp0lv$hhr-yykPjj
+	autocmd FileType css map <leader>ccb I/*  <ESC>A  */<ESC>yyp0llv$r-$hc$*/<ESC>yykPjj
+	" }}}
+	" HEX Color Picker {{{
+	if has("mac")
+		map <leader>hex :PickHEX<CR>
+	else
+		map <leader>hex <Esc>:ColorPicker<Cr>a
+		vmap <leader>hex <Del><Esc>h:ColorPicker<Cr>a
 	endif
+	" }}}
+	" Sort CSS Properties {{{
+	nnoremap <leader>sort ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
+	" }}}
+	" Expand Compressed HTML with Tidy {{{
+	map <leader>td :%!tidy -q -config ~/.vim/tidy.conf --tidy-mark 0 2>/dev/null<CR><ESC>gg=G
+	" }}}
+	" Documentation Writing and Formatting {{{
+	map <leader>h1 yypVr=o
+	map <leader>h2 yypVr-o
+	" }}}
+	" Copy, Cut, Paste and Blockwise Visual Selection {{{
 
-	let LineNow = line('.')
-	let Indent = substitute(LeftGetLine, '^\([ |\t]*\).*$', '\1', '')
+	" Use CTRL-Q to do what CTRL-V used to do, Blockwise Visual Selection
+	noremap <C-Q>   <C-V>
 
-	call setline(LineNow, LeftGetLine)
-	call append(LineNow, Indent . RightGetLine)
-	call append(LineNow, Indent)
-	call feedkeys("\<Down>\<Esc>\A\<Tab>", 'n')
+	"CTRL-X is cut
+	vnoremap <C-X> "+x
 
-	return ''
-endf
+	"CTRL-C is copy
+	vnoremap <C-C> "+y
 
-inoremap <silent> <cr> <c-r>=EnterIndent()<cr>
-" }}}
-" Code Comment Banners {{{
-autocmd FileType vim map <leader>ccb I"<DEL>  <ESC>A  "<DEL><ESC>yyp0lv$hhr"yykPjj
-autocmd FileType javascript,php,c map <leader>ccb I//  <ESC>A  //<ESC>yyp0llv$hhhr-yykPjj
-autocmd FileType python,ruby,sh,zsh map <leader>ccb I#  <ESC>A  #<ESC>yyp0lv$hhr-yykPjj
-autocmd FileType css map <leader>ccb I/*  <ESC>A  */<ESC>yyp0llv$r-$hc$*/<ESC>yykPjj
-" }}}
-" HEX Color Picker {{{
-if has("mac")
-	map <leader>hex :PickHEX<CR>
-else
-	map <leader>hex <Esc>:ColorPicker<Cr>a
-	vmap <leader>hex <Del><Esc>h:ColorPicker<Cr>a
-endif
-" }}}
-" Sort CSS Properties {{{
-nnoremap <leader>sort ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
-" }}}
-" Expand Compressed HTML with Tidy {{{
-map <leader>td :%!tidy -q -config ~/.vim/tidy.conf --tidy-mark 0 2>/dev/null<CR><ESC>gg=G
-" }}}
-" Documentation Writing and Formatting {{{
-map <leader>h1 yypVr=o
-map <leader>h2 yypVr-o
-" }}}
-" Copy, Cut, Paste and Blockwise Visual Selection {{{
+	" Smart Paste CTRL-V from the system's clipboard and indents code automatically
+	nnoremap <C-V> "+P=']
+	inoremap <C-V> <C-o>"+P<C-o>=']
 
-" Use CTRL-Q to do what CTRL-V used to do, Blockwise Visual Selection
-noremap <C-Q>   <C-V>
+	" Select All
+	map <C-A> ggVG
 
-"CTRL-X is cut
-vnoremap <C-X> "+x
+	" Pasting blockwise and linewise selections is not possible in Insert and
+	" Visual mode without the +virtualedit feature.  They are pasted as if they
+	" were characterwise instead.
+	" Uses the paste.vim autoload script.
 
-"CTRL-C is copy
-vnoremap <C-C> "+y
+	"exe 'inoremap <script> <C-V>' paste#paste_cmd['i']
+	"exe 'vnoremap <script> <C-V>' paste#paste_cmd['v']
 
-" Smart Paste CTRL-V from the system's clipboard and indents code automatically
-nnoremap <C-V> "+P=']
-inoremap <C-V> <C-o>"+P<C-o>=']
+	imap <S-Insert> <C-V>
+	vmap <S-Insert> <C-V>
 
-" Select All
-map <C-A> ggVG
+	" }}}
+	" QuickFix {{{
+	map <leader>cope :botright cope<cr>
+	map <leader>cn :cn<cr>
+	map <leader>cp :cp<cr>
+	" }}}
+	" Spell Checking {{{
 
-" Pasting blockwise and linewise selections is not possible in Insert and
-" Visual mode without the +virtualedit feature.  They are pasted as if they
-" were characterwise instead.
-" Uses the paste.vim autoload script.
+	"toggle spell checking
+	map <leader>spl :setlocal spell!<cr>
 
-"exe 'inoremap <script> <C-V>' paste#paste_cmd['i']
-"exe 'vnoremap <script> <C-V>' paste#paste_cmd['v']
+	" Spell checking in Mail textfiles (mutt)
+	au FileType mail au BufEnter,BufWinEnter <buffer> setlocal spell
 
-imap <S-Insert> <C-V>
-vmap <S-Insert> <C-V>
+	" Movement - spell errors
+	map <leader>sn ]s
+	map <leader>sp [s
+	map <leader>sa zg
+	map <leader>s? z=
 
-" }}}
-" QuickFix {{{
-map <leader>cope :botright cope<cr>
-map <leader>cn :cn<cr>
-map <leader>cp :cp<cr>
-" }}}
-" Spell Checking {{{
-
-"toggle spell checking
-map <leader>spl :setlocal spell!<cr>
-
-" Spell checking in Mail textfiles (mutt)
-au FileType mail au BufEnter,BufWinEnter <buffer> setlocal spell
-
-" Movement - spell errors
-map <leader>sn ]s
-map <leader>sp [s
-map <leader>sa zg
-map <leader>s? z=
-
-map <leader>ss ]sz=
-" }}}
-" Word and Character swapping {{{
-nnoremap <silent> gc xph
-" }}}
+	map <leader>ss ]sz=
+	" }}}
+	" Word and Character swapping {{{
+	nnoremap <silent> gc xph
+	" }}}
 " }}}
 " Git related (Fugitive and Vim-git)"{{{
 " nmap <Leader>gst :Gstatus<CR>
@@ -907,6 +910,14 @@ augroup Filetype Specific " {{{
 	au BufNewFile,BufRead *.jinja setlocal syntax=htmljinja
 	au BufNewFile,BufRead *.mako setlocal ft=mako
 	" }}}
+	" Perl"{{{
+	au FileType perl setlocal makeprg=perl\ -W\ %
+	" Sample errors:
+	" Type of arg 1 to push must be array (not hash element) at NFrame.pm line 129, near ");"
+	" Useless use of a constanst at test.pl line 5.
+	au FileType perl setlocal errorformat=%m\ at\ %f\ line\ %l%.%#,
+						\%-G%.%# " ignore any lines that didn't match one of the patterns above
+	"}}}
 	" Markdown {{{
 
 	" Markdown to HTML
@@ -1063,7 +1074,7 @@ iab llorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eius
 	map <F4> :TagbarToggle<CR>
 	" }}}
 	" Gundo {{{
-	map <F7> :GundoToggle<CR>
+	map <F9> :GundoToggle<CR>
 	" }}}
 	" Fugitive {{{
 	" automatically delete fugitive buffers when leaving them
