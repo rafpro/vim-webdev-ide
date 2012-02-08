@@ -66,6 +66,7 @@ Bundle 'rosenfeld/conque-term'
 Bundle 'jelera/vim-powerline'
 Bundle 'jelera/vim-javascript-syntax'
 Bundle 'jelera/vim-nazca-colorscheme'
+Bundle 'jelera/vim-gummybears-colorscheme'
 " Bundle 'SirVer/ultisnips'
 " Bundle 'othree/fecompressor.vim'
 " Bundle 'mattn/zencoding-vim'
@@ -73,6 +74,8 @@ Bundle 'jelera/vim-nazca-colorscheme'
 "  Vim-scripts repos {{{
 Bundle 'TaskList.vim'
 Bundle 'bash-support.vim'
+Bundle 'perl-support.vim'
+Bundle 'BlockComment.vim'
 "}}}
 "  Other Git repos "{{{
 Bundle 'git://git.wincent.com/command-t.git'
@@ -349,7 +352,7 @@ if has('gui_running')
 	set guioptions-=T
 	set guioptions+=c
 	set linespace=6 "Space betweeen lines
-	colorscheme nazca
+	colorscheme gummybears
 	" Font Selection
 	if has('mac')
 		" For MacVim
@@ -360,16 +363,16 @@ if has('gui_running')
 	endif
 else
 	" For Terminal Vim
-	if $TERM =~ '^xterm'
+	if $TERM =~ "^xterm*"
 		set t_Co=256
-		colorscheme nazca
-	elseif $TERM =~ '^screen'
+		colorscheme gummybears
+	elseif $TERM =~ "^screen*"
 		set t_Co=256
-		colorscheme nazca
-	elseif $TERM =~ '^rxvt'
+		colorscheme gummybears
+	elseif $TERM =~ "^rxvt*"
 		set t_Co=88
 		colorscheme pablo
-	elseif $TERM =~ '^linux'
+	elseif $TERM =~ "^linux*"
 		set t_Co=8
 		colorscheme vividchalk
 	else
