@@ -43,6 +43,7 @@ Bundle 'DataWraith/auto_mkdir'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'sjl/gundo.vim'
 Bundle 'Shougo/neocomplcache'
+Bundle 'Shougo/neocomplcache-snippets-complete'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'nathanaelkane/vim-indent-guides'
@@ -58,10 +59,10 @@ Bundle 'groenewege/vim-less'
 Bundle 'davidoc/taskpaper.vim'
 Bundle 'dekomote/w3cvalidate.vim'
 Bundle 'sukima/xmledit'
-Bundle 'spf13/PIV'
+" Bundle 'spf13/PIV'
 Bundle 'kien/rainbow_parentheses.vim'
-Bundle 'mikewest/vimroom'
-Bundle 'fholgado/minibufexpl.vim'
+" Bundle 'mikewest/vimroom'
+" Bundle 'fholgado/minibufexpl.vim'
 Bundle 'rosenfeld/conque-term'
 Bundle 'jelera/vim-powerline'
 Bundle 'jelera/vim-javascript-syntax'
@@ -70,6 +71,7 @@ Bundle 'jelera/vim-gummybears-colorscheme'
 " Bundle 'SirVer/ultisnips'
 " Bundle 'othree/fecompressor.vim'
 " Bundle 'mattn/zencoding-vim'
+Bundle "kien/ctrlp.vim"
 "}}}
 "  Vim-scripts repos {{{
 Bundle 'TaskList.vim'
@@ -78,7 +80,7 @@ Bundle 'perl-support.vim'
 Bundle 'BlockComment.vim'
 "}}}
 "  Other Git repos "{{{
-Bundle 'git://git.wincent.com/command-t.git'
+" Bundle 'git://git.wincent.com/command-t.git'
 "}}}
 
 filetype plugin indent on
@@ -734,7 +736,7 @@ augroup General " {{{
 		let b:stl = "#[Branch] HELP#[BranchS] [>] #[FileName]%<%t #[FileNameS][>>]%* %=#[LinePercentS][<<]#[LinePercent] %p%% " " Set custom statusline
 
 		nnoremap <buffer> <Space> <C-]> " Space selects subject
-		nnoremap <buffer> <BS>    <C-T> " Backspace to go back
+		nnoremap <buffer> <BS>    <C-[> " Backspace to go back
 	endfunction
 
 	au FileType help au BufEnter,BufWinEnter <buffer> call <SID>SetupHelpWindow()
@@ -760,16 +762,64 @@ augroup General " {{{
 	endfunction
 
 	"}}}
+	" Show syntax highlighting groups for word under cursor"{{{
+	nmap <Leader>syn :call <SID>SynStack()<CR>
+	function! <SID>SynStack()
+		if !exists("*synstack")
+			return
+		endif
+		echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+	endfunc
+	"}}}
 augroup END " }}}
 augroup Formatting " {{{
 	autocmd!
 	" Fix gitcommit formatting {{{
-	au FileType gitcommit setl formatoptions+=at formatoptions-=l textwidth=72 colorcolumn=72
+	au FileType gitcommit setl textwidth=72 colorcolumn=72
+	" au FileType gitcommit setl formatoptions+=at formatoptions-=l textwidth=72 colorcolumn=72
 	" }}}
 	" Format plain text and e-mails correctly {{{
 	au BufNewFile,BufRead *.txt setl ft=text
 	au FileType mail,text setl formatoptions+=t formatoptions-=l textwidth=72 colorcolumn=72
 	" }}}
+	" Vim Focus Mode "{{{
+	" Borrowed from :
+	" http://paulrouget.com/e/vimdarkroom/
+	function! ToggleFocusMode()
+		if (&foldcolumn != 12)
+			set laststatus=0
+			set numberwidth=10
+			set foldcolumn=12
+			set noruler
+			set nonumber
+			hi FoldColumn guifg=NONE guibg=NONE ctermfg=NONE ctermbg=NONE
+			hi LineNr     ctermfg=0 ctermbg=NONE guifg=#000000 guibg=NONE
+			hi NonText    ctermfg=0 ctermbg=NONE guifg=#000000 guibg=NONE
+			if has('mac')
+				" For MacVim
+				setlocal guifont=DejaVu\ Sans\ Mono\:h16
+			else
+				" For Linux gVim
+				setlocal guifont=DejaVu\ Sans\ Mono\ 14
+			endif
+		else
+			set laststatus=2
+			set numberwidth=4
+			set foldcolumn=0
+			set ruler
+			set relativenumber
+			execute 'colorscheme ' . g:colors_name
+			if has('mac')
+				" For MacVim
+				setlocal guifont=DejaVu\ Sans\ Mono\:h12
+			else
+				" For Linux gVim
+				setlocal guifont=DejaVu\ Sans\ Mono\ 10
+			endif
+		endif
+	endfunc
+	nnoremap <Leader>mz :call ToggleFocusMode()<cr>
+	"}}}
 augroup END" }}}
 augroup Whitespace " {{{
 	autocmd!
@@ -920,6 +970,7 @@ augroup Filetype Specific " {{{
 	"}}}
 	" Markdown {{{
 
+	au FileType markdown setlocal textwidth=72
 	" Markdown to HTML
 	au FileType markdown nnoremap <silent> <leader>md :%!markdown 2>/dev/null<CR>
 
@@ -1063,8 +1114,8 @@ iab llorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eius
 
 	autocmd BufRead,BufNew :call UMiniBufExplorer
 
-	map <leader>u :TMiniBufExplorer<cr>
-	map <F3> :TMiniBufExplorer<cr>
+	" map <leader>u :TMiniBufExplorer<cr>
+	" map <F3> :TMiniBufExplorer<cr>
 	" }}}
 	" Vim Indent Guides {{{
 	" let g:indent_guides_start_level = 2
@@ -1083,8 +1134,10 @@ iab llorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eius
 	"  Sparkup"{{{
 	imap <C-y> <ESC><C-e>
 	"}}}
-	" Command-T"{{{
-	map <C-t> :CommandT<cr>
+	" Ctrl-P {{{
+	map <C-t> :CtrlP<cr>
+	map <F3> :CtrlPBuffer<CR>
+	map <Leader><F3> :CtrlPMRU<CR>
 	"}}}
 	"ConqueTerm"{{{
 	nmap <Leader>sh :ConqueTermSplit zsh<CR>
@@ -1093,3 +1146,4 @@ iab llorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eius
 	let g:Powerline_symbols = 'fancy'
 	"}}}
 "}}}
+
