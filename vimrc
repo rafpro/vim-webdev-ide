@@ -909,7 +909,7 @@ augroup Filetype Specific " {{{
 	autocmd FileType css setlocal smartindent foldmethod=indent
 	autocmd FileType css setlocal noexpandtab tabstop=2 shiftwidth=2
 	autocmd FileType css map <leader>css %s/{\_.\{-}}/\=substitute(submatch(0), '\n', '', 'g')/
-	autocmd filetype css setlocal equalprg=csstidy\ -\ --silent=true
+	" autocmd filetype css setlocal equalprg=csstidy\ -\ --silent=true
 
 	" }}}
 	" Javascript {{{
