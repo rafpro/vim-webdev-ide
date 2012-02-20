@@ -51,7 +51,7 @@ Bundle 'gmarik/vundle'
 	Bundle 'nathanaelkane/vim-indent-guides'
 	"}}}
 	" General Purpose Plugins"{{{
-	Bundle "kien/ctrlp.vim"
+	Bundle 'kien/ctrlp.vim'
 	Bundle 'mileszs/ack.vim'
 	Bundle 'tpope/vim-fugitive'
 	Bundle 'jelera/vim-powerline'
