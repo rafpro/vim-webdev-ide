@@ -1,14 +1,19 @@
+
+"  /\/|  __              _
+" |/\/  / /     __   __ (_)  _ __ ___  _ __ ___
+"      / /      \ \ / / | | | '_ ` _ \| '__/ __|
+"     / /    _   \ V /  | | | | | | | | | | (__
+"    /_/    (_)   \_/   |_| |_| |_| |_|_|  \___|
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Maintainer: Jose Elera Campana
 "			http://www.twitter.com/jelera
 "			https://github.com/jelera
 "
-" How_to_Install_on_Unix:
-"    $ git clone
-"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" VUNDLE AND PLUGINS {{{
-" Vundle Settings"{{{
+" VUNDLE AND PLUGINS "{{{
+" Vundle Settings""{{{
 set nocompatible	" For Vim to be incompatible with the original Vi
 filetype off
 
@@ -23,64 +28,71 @@ Bundle 'gmarik/vundle'
 """""""""""""""""""""
 "  My Bundles here  "
 """""""""""""""""""""
-"  Github repos"{{{
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-markdown'
-Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-git'
-Bundle 'tpope/vim-rake'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-rvm'
-Bundle 'tpope/vim-commentary'
-Bundle 'tpope/vim-haml'
-Bundle 'tpope/vim-rhubarb'
-Bundle 'tpope/vim-speeddating'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-ragtag'
-Bundle 'mileszs/ack.vim'
-Bundle 'DataWraith/auto_mkdir'
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-Bundle 'sjl/gundo.vim'
-Bundle 'Shougo/neocomplcache'
-Bundle 'Shougo/neocomplcache-snippets-complete'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/syntastic'
-Bundle 'nathanaelkane/vim-indent-guides'
-Bundle 'mattn/gist-vim'
-Bundle 'godlygeek/tabular'
-Bundle 'tyru/current-func-info.vim'
-Bundle 'majutsushi/tagbar'
-Bundle 'gregsexton/MatchTag'
-Bundle 'gregsexton/gitv'
-Bundle 'skammer/vim-css-color'
-Bundle 'hail2u/vim-css3-syntax'
-Bundle 'groenewege/vim-less'
-Bundle 'davidoc/taskpaper.vim'
-Bundle 'dekomote/w3cvalidate.vim'
-Bundle 'sukima/xmledit'
-" Bundle 'spf13/PIV'
-Bundle 'kien/rainbow_parentheses.vim'
-" Bundle 'mikewest/vimroom'
-" Bundle 'fholgado/minibufexpl.vim'
-Bundle 'rosenfeld/conque-term'
-Bundle 'jelera/vim-powerline'
-Bundle 'jelera/vim-javascript-syntax'
-Bundle 'jelera/vim-nazca-colorscheme'
-Bundle 'jelera/vim-gummybears-colorscheme'
-" Bundle 'SirVer/ultisnips'
-" Bundle 'othree/fecompressor.vim'
-" Bundle 'mattn/zencoding-vim'
-Bundle "kien/ctrlp.vim"
+"  Github repos""{{{
+	" Programmer Helpers"{{{
+	Bundle 'dekomote/w3cvalidate.vim'
+	Bundle 'tpope/vim-repeat'
+	Bundle 'tpope/vim-speeddating'
+	Bundle 'tpope/vim-surround'
+	Bundle 'tpope/vim-git'
+	Bundle 'tpope/vim-endwise'
+	Bundle 'tpope/vim-rails'
+	Bundle 'tpope/vim-rake'
+	Bundle 'tpope/vim-rvm'
+	Bundle 'tpope/vim-ragtag'
+	Bundle 'tpope/vim-commentary'
+	Bundle 'tpope/vim-rhubarb'
+	Bundle 'gregsexton/MatchTag'
+	Bundle 'skammer/vim-css-color'
+	Bundle 'sukima/xmledit'
+	Bundle 'scrooloose/syntastic'
+	Bundle 'godlygeek/tabular'
+	Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+	Bundle 'nathanaelkane/vim-indent-guides'
+	"}}}
+	" General Purpose Plugins"{{{
+	Bundle 'kien/ctrlp.vim'
+	Bundle 'mileszs/ack.vim'
+	Bundle 'tpope/vim-fugitive'
+	Bundle 'jelera/vim-powerline'
+	Bundle 'rosenfeld/conque-term'
+	Bundle 'kien/rainbow_parentheses.vim'
+	Bundle 'majutsushi/tagbar'
+	Bundle 'tyru/current-func-info.vim'
+	Bundle 'Shougo/neocomplcache'
+	Bundle 'Shougo/neocomplcache-snippets-complete'
+	Bundle 'DataWraith/auto_mkdir'
+	Bundle 'sjl/gundo.vim'
+	Bundle 'scrooloose/nerdtree'
+	Bundle 'mattn/gist-vim'
+	Bundle 'gregsexton/gitv'
+	"}}}
+	" Syntax Files"{{{
+	Bundle 'jelera/vim-javascript-syntax'
+	Bundle 'hail2u/vim-css3-syntax'
+	Bundle 'tpope/vim-markdown'
+	Bundle 'tpope/vim-haml'
+	Bundle 'groenewege/vim-less'
+	Bundle 'davidoc/taskpaper.vim'
+	Bundle 'othree/xml.vim'
+	"}}}
+	"Colorschemes "{{{
+	Bundle 'jelera/vim-nazca-colorscheme'
+	Bundle 'jelera/vim-gummybears-colorscheme'
+	Bundle 'tomasr/molokai'
+	Bundle 'tpope/vim-vividchalk'
+	Bundle 'nanotech/jellybeans.vim'
+	Bundle 'Railscasts-Theme-GUIand256color'
+	Bundle 'altercation/vim-colors-solarized'
+	Bundle 'peaksea'
+	Bundle 'Zenburn'
+	"}}}
 "}}}
 "  Vim-scripts repos {{{
 Bundle 'TaskList.vim'
 Bundle 'bash-support.vim'
 Bundle 'perl-support.vim'
 Bundle 'BlockComment.vim'
-"}}}
-"  Other Git repos "{{{
-" Bundle 'git://git.wincent.com/command-t.git'
 "}}}
 
 filetype plugin indent on
