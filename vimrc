@@ -46,9 +46,11 @@ Bundle 'gmarik/vundle'
 	Bundle 'skammer/vim-css-color'
 	Bundle 'sukima/xmledit'
 	Bundle 'scrooloose/syntastic'
+	" Bundle 'scrooloose/nerdcommenter'
 	Bundle 'godlygeek/tabular'
 	Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 	Bundle 'nathanaelkane/vim-indent-guides'
+	Bundle 'Align'
 	"}}}
 	" General Purpose Plugins"{{{
 	Bundle 'kien/ctrlp.vim'
@@ -66,6 +68,7 @@ Bundle 'gmarik/vundle'
 	Bundle 'scrooloose/nerdtree'
 	Bundle 'mattn/gist-vim'
 	Bundle 'gregsexton/gitv'
+	Bundle 'vimwiki'
 	"}}}
 	" Syntax Files"{{{
 	Bundle 'jelera/vim-javascript-syntax'
