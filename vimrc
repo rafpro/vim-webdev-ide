@@ -1,4 +1,3 @@
-
 "  /\/|  __              _
 " |/\/  / /     __   __ (_)  _ __ ___  _ __ ___
 "      / /      \ \ / / | | | '_ ` _ \| '__/ __|
@@ -10,8 +9,8 @@
 " Maintainer: Jose Elera Campana
 "			http://www.twitter.com/jelera
 "			https://github.com/jelera
-"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " VUNDLE AND PLUGINS "{{{
 " Vundle Settings""{{{
 set nocompatible	" For Vim to be incompatible with the original Vi
@@ -400,8 +399,8 @@ endif
 " }}}
 " Use custom fillchars/listchars/showbreak icons {{{
 set fillchars=vert:║,diff:∓
-set listchars=tab:▸\ ,eol:¬
-set showbreak=⋯⋯
+set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
+set showbreak=↪⋯⋯
 " }}}
 " Lines, columns and Break Indent"{{{
 if exists('+lines')
@@ -563,13 +562,20 @@ set noexpandtab
 	vmap < <gv
 	vmap = =gv
 	" }}}
-	" Switch the PWD to open buffer's {{{ nmap <Leader>cd :cd %:p:h<CR>
+	" Switch the PWD to open buffer's {{{
+	nmap <Leader>cd :cd %:p:h<CR>
 	" }}}
 	" Edit files that are in the main project root dir"{{{
 	nmap <Leader>ew :e <C-R>=expand("%:p:h")."/"<CR>
 	"}}}
 	" F7 will call MAKEPRG"{{{
 	map <F7> :make<CR>
+	"}}}
+	" Easy split navigation"{{{
+	nnoremap <C-h> <C-w>h
+	nnoremap <C-j> <C-w>j
+	nnoremap <C-k> <C-w>k
+	nnoremap <C-l> <C-w>l
 	"}}}
 "}}}
 " Editing {{{
@@ -727,6 +733,10 @@ set noexpandtab
 	" Word and Character swapping {{{
 	nnoremap <silent> gc xph
 	" }}}
+	" Insert blank lines without going into Insert mode"{{{
+	nmap t o<ESC>k
+	nmap T O<ESC>j
+	" "}}}
 " }}}
 " Git related (Fugitive and Vim-git)"{{{
 " nmap <Leader>gst :Gstatus<CR>
@@ -1161,4 +1171,3 @@ iab llorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eius
 	let g:Powerline_symbols = 'fancy'
 	"}}}
 "}}}
-
