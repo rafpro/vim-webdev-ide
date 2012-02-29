@@ -71,6 +71,7 @@ Bundle 'gmarik/vundle'
 	"}}}
 	" Syntax Files"{{{
 	Bundle 'jelera/vim-javascript-syntax'
+	Bundle 'jelera/vim-python-syntax'
 	Bundle 'hail2u/vim-css3-syntax'
 	Bundle 'tpope/vim-markdown'
 	Bundle 'tpope/vim-haml'
@@ -375,7 +376,8 @@ if has('gui_running')
 		set guifont=DejaVu\ Sans\ Mono\:h14
 	else
 		" For Linux gVim
-		set guifont=DejaVu\ Sans\ Mono\ 10
+		set guifont=Inconsolata-dz\ for\ Powerline\ 12
+		" set guifont=DejaVu\ Sans\ Mono\ 10
 	endif
 else
 	" For Terminal Vim
