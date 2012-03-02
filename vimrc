@@ -172,7 +172,7 @@ set noerrorbells visualbell t_vb=
 "}}}
 " Wild menu (Autocompletion)" {{{
 set wildmenu
-set wildignore=.svn,CVS,.git,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.jpeg,*.png,*.xpm,*.gif
+set wildignore=.svn,CVS,.git,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp
 set wildmode=full
 "}}}
 " Backup and Swap"{{{
@@ -188,7 +188,6 @@ set ignorecase " Searches are Non Case-sensitive
 set smartcase
 "}}}
 " Conflict markers {{{
-
 " Highlight conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
@@ -528,7 +527,7 @@ set noexpandtab
 	" }}}
 	" Toggle between 'Relative' and 'Absolute' line numbers (only Vim >7.3{{{
 	" by aj3423
-	map <leader>ln :call g:ToggleNuMode()<cr>
+	map <silent><leader>ln :call g:ToggleNuMode()<cr>
 	function! g:ToggleNuMode()
 		if(&rnu == 1)
 			set nu
@@ -584,27 +583,12 @@ set noexpandtab
 	" Quick edit .vimrc and the Nazca Colorscheme {{{
 	nnoremap <silent> <Leader>vim :edit   $MYVIMRC<CR>
 	nnoremap <silent> <Leader>sv :source $MYVIMRC<CR>
-	nnoremap <silent> <Leader>naz :e $HOME/.vim/colors/nazca.vim<CR>
+	nnoremap <silent> <Leader>gum :e $HOME/.vim/bundle/vim-gummybears-colorscheme/colors/gummybears.vim<CR>
 	" }}}
 	" Strip trailing whitespace {{{
 	nnoremap <leader>nw :%s/\s\+$//e<cr>:let @/=''<CR>
 	" }}}
 	" Autocomplete {} indent and reposition of the cursor in the middle {{{
-	" inoremap {      {}<Left>
-	"inoremap {<CR>  {<CR>}<Esc>O
-	""inoremap {{     {
-	"inoremap {}     {}
-
-	"inoremap (      ()<Left>
-	"inoremap (<CR>  (<CR>)<Esc>O
-	""inoremap ((     (
-	"inoremap ()     ()
-
-	"inoremap [      []<Left>
-	"inoremap [<CR>  [<CR>]<Esc>O
-	""inoremap [[     [
-	"inoremap []     []
-
 	" Taken from https://github.com/acustodioo/vim-enter-indent
 	func! EnterIndent()
 		let EnterIndentActive = [
@@ -703,10 +687,6 @@ set noexpandtab
 	" Visual mode without the +virtualedit feature.  They are pasted as if they
 	" were characterwise instead.
 	" Uses the paste.vim autoload script.
-
-	"exe 'inoremap <script> <C-V>' paste#paste_cmd['i']
-	"exe 'vnoremap <script> <C-V>' paste#paste_cmd['v']
-
 	imap <S-Insert> <C-V>
 	vmap <S-Insert> <C-V>
 
@@ -717,12 +697,11 @@ set noexpandtab
 	map <leader>cp :cp<cr>
 	" }}}
 	" Spell Checking {{{
-
 	"toggle spell checking
 	map <leader>spl :setlocal spell!<cr>
 
 	" Spell checking in Mail textfiles (mutt)
-	au FileType mail au BufEnter,BufWinEnter <buffer> setlocal spell
+	au FileType mail,xhtml,html,text,markdown au BufEnter,BufWinEnter <buffer> setlocal spell
 
 	" Movement - spell errors
 	map <leader>sn ]s
@@ -780,14 +759,12 @@ augroup General " {{{
 	au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
 	" }}}
 	"Open URL in browser  {{{
-
 	nmap <leader>url : call OpenURLBrowser()
 	function! OpenURLBrowser()
 		let line = getline (".")
 		let line = matchstr (line, "http[^ ]*")
 		exec "!konqueror ".line
 	endfunction
-
 	"}}}
 	" Show syntax highlighting groups for word under cursor"{{{
 	nmap <Leader>syn :call <SID>SynStack()<CR>
@@ -879,124 +856,7 @@ augroup Filetype Specific " {{{
 	" au BufNewFile *.rb Vimplate ruby
 	" au BufNewFile Makefile Vimplate Makefile-C
 	" }}}
-	" SQL {{{
-	au BufNewFile,BufRead *.sql set ft=sql foldmethod=marker
-	" }}}
-	" Nginx {{{
-	au BufNewFile,BufRead /etc/nginx/conf/* setl ft=nginx
-	" }}}
-	" Arch Linux {{{
-	au BufNewFile,BufRead PKGBUILD setl syntax=sh ft=sh
-	au BufNewFile,BufRead *.install setl syntax=sh ft=sh
-	" }}}
-	" PHP {{{
-	let g:php_folding = 1
-	let g:php_html_in_strings = 1
-	let g:php_parent_error_close = 1
-	let g:php_parent_error_open = 1
-	let g:php_no_shorttags = 1
-	" }}}
-	" LESS {{{
-	au BufNewFile,BufRead *.less setl ft=less
-	" }}}
-	" SASS {{{
-	au FileType sass SyntasticDisable
-	" }}}
-	" Python highlighting {{{
-	let g:python_highlight_all = 1
-	let g:python_show_sync = 1
-	let g:python_print_as_function = 1
-	" }}}
-	" Ruby {{{
-	au FileType ruby setlocal ts=2 sts=2 sw=2 noexpandtab foldmethod=syntax
-	" }}}
-	" HTML/XHTML {{{
-	" for HTML, generally format text, but if a long line has been created
-	" leave it alone when editing:
-	autocmd FileType html,xhtml setlocal formatoptions+=tl
-	" autocmd FileType html,xhtml setlocal foldmethod=indent smartindent
-	autocmd FileType html,xhtml setlocal textwidth=0
-	autocmd FileType html,xhtml setlocal noexpandtab tabstop=3 shiftwidth=3
-	au FileType html,xhtml,xml so ~/.vim/ftplugin/html_autoclosetag.vim
-	autocmd FileType html,xhtml setlocal wildignore-=*.jpg,*.jpeg,*.png,*.gif
-	" Load the Current buffer in default web browser of Firefox {{{
-	au Filetype html,xhtml nmap <silent> <leader>pv : call PreviewInBrowser()<CR>
-	func! PreviewInBrowser()
-		if has("mac")
-			"exec "!open %"
-			exec "!open -a /Applications/Firefox.app/ %"
-			"exec "!open -a firefox.app %:p"
-		else
-			exec "!firefox %"
-		endif
-	endfunc
-	" }}}
-	" }}}
-	" CSS {{{
-	autocmd FileType css setlocal smartindent foldmethod=indent
-	autocmd FileType css setlocal noexpandtab tabstop=2 shiftwidth=2
-	autocmd FileType css map <leader>css %s/{\_.\{-}}/\=substitute(submatch(0), '\n', '', 'g')/
-	" autocmd filetype css setlocal equalprg=csstidy\ -\ --silent=true
-
-	" }}}
-	" Javascript {{{
-	" au BufNewFile,BufRead *.js setlocal ft javascript
-	au BufNewFile,BufRead *.jsm setlocal ft javascript
-	au BufNewFile,BufRead Jakefile setlocal ft javascript
-	au FileType javascript setlocal ts=4 sts=4 sw=4 noexpandtab
-	au FileType javascript setlocal foldenable
-	au FileType javascript setlocal nocindent
-	au FileType javascript call JavaScriptFold()
-
-	" jQuery syntax
-	au BufRead,BufNewFile jquery.*.js setlocal ft=javascript syntax=jquery
-
-	" JSON syntax
-	au BufRead,BufNewFile *.json setlocal ft=json
-
-	" Expand compressed (minified) Javascript with JSBeautify.vim
-	au FileType javascript nmap <leader>jsb : call g:Jsbeautify()<CR>
-
-	" }}}
-	" SQL {{{
-	" http://stepanoff.org/wordpress/archives/1536
-
-	" Select Database
-	map <leader>db :call SwitchDB()<CR>
-	function! SwitchDB()
-		let g:current_db = input("Database > ")
-	endfunction
-
-	" Run SQL Query
-	map <leader>sql :call Doquery()<CR>
-	function! Doquery()
-		if !exists("g:current_db")
-			call SwitchDB()
-		endif
-		let query_string = input(g:current_db . " > " )
-		if query_string != ""
-			exe "!mysql " . g:current_db . " -e \"" . escape(query_string, '"') . "\""
-		endif
-	endfunction
-	" }}}
-	" Python {{{
-	au FileType python setlocal nocindent
-	let python_highlight_all = 1
-	au FileType python syn keyword pythonDecorator True None False self
-
-	au BufNewFile,BufRead *.jinja setlocal syntax=htmljinja
-	au BufNewFile,BufRead *.mako setlocal ft=mako
-	" }}}
-	" Perl"{{{
-	au FileType perl setlocal makeprg=perl\ -W\ %
-	" Sample errors:
-	" Type of arg 1 to push must be array (not hash element) at NFrame.pm line 129, near ");"
-	" Useless use of a constanst at test.pl line 5.
-	au FileType perl setlocal errorformat=%m\ at\ %f\ line\ %l%.%#,
-						\%-G%.%# " ignore any lines that didn't match one of the patterns above
-	"}}}
 	" Markdown {{{
-
 	au FileType markdown setlocal textwidth=72
 	" Markdown to HTML
 	au FileType markdown nnoremap <silent> <leader>md :%!markdown 2>/dev/null<CR>
@@ -1015,7 +875,112 @@ augroup Filetype Specific " {{{
 		endif
 	endfunc
 	" }}}
+	" HTML/XHTML {{{
+	" for HTML, generally format text, but if a long line has been created
+	" leave it alone when editing:
+	autocmd FileType html,xhtml setlocal formatoptions+=tl
+	autocmd FileType html,xhtml setlocal textwidth=0
+	autocmd FileType html,xhtml setlocal noexpandtab tabstop=3 shiftwidth=3
+	au FileType html,xhtml,xml so ~/.vim/ftplugin/html_autoclosetag.vim
+	" Load the Current buffer in default web browser of Firefox {{{
+	au Filetype html,xhtml nmap <silent> <leader>pv : call PreviewInBrowser()<CR>
+	func! PreviewInBrowser()
+		if has("mac")
+			"exec "!open %"
+			exec "!open -a /Applications/Firefox.app/ %"
+			"exec "!open -a firefox.app %:p"
+		else
+			exec "!firefox %"
+		endif
+	endfunc
+	" }}}
+	" }}}
+	" Javascript {{{
+	au BufNewFile,BufRead *.jsm setlocal ft=javascript
+	au BufNewFile,BufRead Jakefile setlocal ft=javascript
+	au FileType javascript setlocal ts=4 sts=4 sw=4 noexpandtab
+	au FileType javascript setlocal foldenable
+	au FileType javascript setlocal nocindent
+	au FileType javascript call JavaScriptFold()
 
+	" jQuery syntax
+	au BufRead,BufNewFile jquery.*.js setlocal ft=javascript syntax=jquery
+
+	" JSON syntax
+	au BufRead,BufNewFile *.json setlocal ft=json
+
+	" Expand compressed (minified) Javascript with JSBeautify.vim
+	au FileType javascript nmap <leader>jsb : call g:Jsbeautify()<CR>
+	" }}}
+	" CSS {{{
+	autocmd FileType css setlocal smartindent foldmethod=indent
+	autocmd FileType css setlocal noexpandtab tabstop=2 shiftwidth=2
+	autocmd FileType css map <leader>css %s/{\_.\{-}}/\=substitute(submatch(0), '\n', '', 'g')/
+	" autocmd filetype css setlocal equalprg=csstidy\ -\ --silent=true
+	" }}}
+	" LESS {{{
+	au BufNewFile,BufRead *.less setl ft=less
+	" }}}
+	" SASS {{{
+	au FileType sass SyntasticDisable
+	" }}}
+	" PHP {{{
+	let g:php_folding = 1
+	let g:php_html_in_strings = 1
+	let g:php_parent_error_close = 1
+	let g:php_parent_error_open = 1
+	let g:php_no_shorttags = 1
+	" }}}
+	" Ruby {{{
+	au FileType ruby setlocal ts=2 sts=2 sw=2 noexpandtab foldmethod=syntax
+	" }}}
+	" Python {{{
+	au FileType python setlocal nocindent
+	au BufNewFile,BufRead *.jinja setlocal syntax=htmljinja
+	au BufNewFile,BufRead *.mako setlocal ft=mako
+		" Python highlighting {{{
+		" let g:python_highlight_all = 1
+		" let g:python_show_sync = 1
+		" let g:python_print_as_function = 1
+		" }}}
+	" }}}
+	" Perl"{{{
+	au FileType perl setlocal makeprg=perl\ -W\ %
+	" Sample errors:
+	" Type of arg 1 to push must be array (not hash element) at NFrame.pm line 129, near ");"
+	" Useless use of a constanst at test.pl line 5.
+	au FileType perl setlocal errorformat=%m\ at\ %f\ line\ %l%.%#,
+						\%-G%.%# " ignore any lines that didn't match one of the patterns above
+	"}}}
+	" Nginx {{{
+	au BufNewFile,BufRead /etc/nginx/conf/* setl ft=nginx
+	" }}}
+	" Arch Linux {{{
+	au BufNewFile,BufRead PKGBUILD setl syntax=sh ft=sh
+	au BufNewFile,BufRead *.install setl syntax=sh ft=sh
+	" }}}
+	" SQL {{{
+	au BufNewFile,BufRead *.sql set ft=sql foldmethod=marker
+
+	" http://stepanoff.org/wordpress/archives/1536
+	" Select Database
+	map <leader>db :call SwitchDB()<CR>
+	function! SwitchDB()
+		let g:current_db = input("Database > ")
+	endfunction
+
+	" Run SQL Query
+	map <leader>sql :call Doquery()<CR>
+	function! Doquery()
+		if !exists("g:current_db")
+			call SwitchDB()
+		endif
+		let query_string = input(g:current_db . " > " )
+		if query_string != ""
+			exe "!mysql " . g:current_db . " -e \"" . escape(query_string, '"') . "\""
+		endif
+	endfunction
+	" }}}
 augroup END " }}}
 " }}}
 
@@ -1028,7 +993,7 @@ iab #e #!/usr/bin/env
 iab #r #!/usr/bin/env ruby
 iab #b #!/bin/bash
 
-iabbrev lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sollicitudin quam eget libero pulvinar id condimentum velit sollicitudin. Proin cursus scelerisque dui ac condimentum. Nullam quis tellus leo. Morbi consectetur, lectus a blandit tincidunt, tortor augue tincidunt nisi, sit amet rhoncus tortor velit eu felis.
+iab lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sollicitudin quam eget libero pulvinar id condimentum velit sollicitudin. Proin cursus scelerisque dui ac condimentum. Nullam quis tellus leo. Morbi consectetur, lectus a blandit tincidunt, tortor augue tincidunt nisi, sit amet rhoncus tortor velit eu felis.
 
 iab llorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 " }}}
@@ -1128,22 +1093,6 @@ iab llorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eius
 	" Autoclose {{{
 	nmap <Leader>ac <Plug>ToggleAutoCloseMappings
 	" }}}
-	" MiniBufExpl {{{
-	let g:miniBufExplModSelTarget = 1
-	let g:miniBufExplorerMoreThanOne = 2
-	let g:miniBufExplModSelTarget = 0
-	let g:miniBufExplUseSingleClick = 1
-	let g:miniBufExplMapWindowNavVim = 1
-	let g:miniBufExplVSplit = 20
-	let g:miniBufExplSplitBelow=1
-
-	let g:bufExplorerSortBy = "name"
-
-	autocmd BufRead,BufNew :call UMiniBufExplorer
-
-	" map <leader>u :TMiniBufExplorer<cr>
-	" map <F3> :TMiniBufExplorer<cr>
-	" }}}
 	" Vim Indent Guides {{{
 	" let g:indent_guides_start_level = 2
 	" let g:indent_guides_guide_size = 1
@@ -1162,9 +1111,9 @@ iab llorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eius
 	imap <C-y> <ESC><C-e>
 	"}}}
 	" Ctrl-P {{{
-	map <C-t> :CtrlP<cr>
-	map <F3> :CtrlPBuffer<CR>
-	map <Leader><F3> :CtrlPMRU<CR>
+	map <C-t>t :CtrlP<cr>
+	map <C-t>b :CtrlPBuffer<CR>
+	map <C-t>m :CtrlPMRU<CR>
 	"}}}
 	"ConqueTerm"{{{
 	nmap <Leader>sh :ConqueTermSplit zsh<CR>
