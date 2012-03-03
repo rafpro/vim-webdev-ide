@@ -372,11 +372,10 @@ if has('gui_running')
 	" Font Selection
 	if has('mac')
 		" For MacVim
-		set guifont=DejaVu\ Sans\ Mono\:h14
+		set guifont=Inconsolata-dz\ for\ Powerline\:h12
 	else
 		" For Linux gVim
 		set guifont=Inconsolata-dz\ for\ Powerline\ 12
-		" set guifont=DejaVu\ Sans\ Mono\ 10
 	endif
 else
 	" For Terminal Vim
@@ -471,6 +470,14 @@ set noexpandtab
 
 " MAPPINGS {{{
 " General "{{{
+	" Escape while insert mode with kj jk F1"{{{
+		inoremap jk <Esc>
+		inoremap kj <Esc>
+		" Key mappings to make F1 act as escape so you don't have to worry about
+		inoremap <F1> <ESC>
+		nnoremap <F1> <ESC>
+		vnoremap <F1> <ESC>
+	"}}}
 	" Vertically split window and select it  {{{
 	nnoremap <Leader>v <C-w>v<C-w>l
 	" }}}
@@ -801,10 +808,10 @@ augroup Formatting " {{{
 			hi NonText    ctermfg=0 ctermbg=NONE guifg=#000000 guibg=NONE
 			if has('mac')
 				" For MacVim
-				setlocal guifont=DejaVu\ Sans\ Mono\:h16
+				setlocal guifont=Inconsolata-dz\ for\ Powerline\:h16
 			else
 				" For Linux gVim
-				setlocal guifont=DejaVu\ Sans\ Mono\ 14
+				setlocal guifont=Inconsolata-dz\ for\ Powerline\ 16
 			endif
 		else
 			set laststatus=2
@@ -815,10 +822,10 @@ augroup Formatting " {{{
 			execute 'colorscheme ' . g:colors_name
 			if has('mac')
 				" For MacVim
-				setlocal guifont=DejaVu\ Sans\ Mono\:h12
+				set guifont=Inconsolata-dz\ for\ Powerline\:h12
 			else
 				" For Linux gVim
-				setlocal guifont=DejaVu\ Sans\ Mono\ 10
+				setlocal guifont=Inconsolata-dz\ for\ Powerline\ 12
 			endif
 		endif
 	endfunc
