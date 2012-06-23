@@ -90,6 +90,9 @@ Bundle 'gmarik/vundle'
 	Bundle 'peaksea'
 	Bundle 'Zenburn'
 	"}}}
+	" External tools"{{{
+	Bundle 'sjl/vitality.vim'
+	"}}}
 "}}}
 "  Vim-scripts repos {{{
 Bundle 'TaskList.vim'
