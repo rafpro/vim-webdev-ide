@@ -61,7 +61,7 @@ Bundle 'gmarik/vundle'
 	Bundle 'majutsushi/tagbar'
 	Bundle 'tyru/current-func-info.vim'
 	Bundle 'Shougo/neocomplcache'
-	Bundle 'Shougo/neocomplcache-snippets-complete'
+	Bundle 'Shougo/neosnippet'
 	Bundle 'DataWraith/auto_mkdir'
 	Bundle 'sjl/gundo.vim'
 	Bundle 'scrooloose/nerdtree'
@@ -87,6 +87,7 @@ Bundle 'gmarik/vundle'
 	Bundle 'nanotech/jellybeans.vim'
 	Bundle 'Railscasts-Theme-GUIand256color'
 	Bundle 'altercation/vim-colors-solarized'
+	Bundle 'noahfrederick/Hemisu'
 	Bundle 'peaksea'
 	Bundle 'Zenburn'
 	"}}}
@@ -108,27 +109,39 @@ filetype plugin indent on
 " General Options "{{{
 set title
 set hidden
-" This will setup the user's shell $PATH to vim/gvim/macvim
+" This will setup the user's shell
+" $PATH to vim/gvim/macvim
 exe "set path=".expand("$PATH")
 
 syntax on
 
 set nomodeline
-set autochdir                                           " Automatically use the current file's directory as the working directory
-set backspace=indent,eol,start                          " Backspace will delete EOL chars, as well as indents
-set matchpairs+=<:>                                     " For characters that forms pairs for using % commands, this is for HTML Tags
-set shortmess=atToOI                                    " To avoid the 'Hit Enter' prompts caused by the file messages
-set iskeyword+=_,$,@,%,#                                " Keywords are use to searching and recognized with many commands
-set spelllang=en_us,es                                  " English and Spanish for spelling
+" Automatically use the current file's directory as the working directory
+set autochdir
+" Backspace will delete EOL chars, as well as indents
+set backspace=indent,eol,start
+" For characters that forms pairs for using % commands, this is for HTML Tags
+set matchpairs+=<:>
+" To avoid the 'Hit Enter' prompts caused by the file messages
+set shortmess=atToOI
+" Keywords are use to searching and recognized with many commands
+set iskeyword+=_,$,@,%,#
+" English and Spanish for spelling
+set spelllang=en_us,es
 try
 	lang en_US
 catch
 endtry
-set autoread                                            " Set to autoread when a file is changed from the outside
-set mousehide                                           " Hide the mouse cursor when typing
-set report=0                                            " Reports always the amount of changed lines
-set viminfo='1000,f1,:1000,/1000,<1000,s100             " marks: 1000 files, history lines: 1000 lines, search queries: 1000 patterns, registers: 1000
-set directory=$HOME/.vimfiles/swapfiles,/var/tmp,/tmp,. " Swap directory to store temporary files
+" Set to autoread when a file is changed from the outside
+set autoread
+" Hide the mouse cursor when typing
+set mousehide
+" Reports always the amount of changed lines
+set report=0
+" marks: 1000 files, history lines: 1000 lines, search queries: 1000 patterns, registers: 1000
+set viminfo='1000,f1,:1000,/1000,<1000,s100
+" Swap directory to store temporary files
+set directory=$HOME/.vimfiles/swapfiles,/var/tmp,/tmp,.
 set history=1000
 set undolevels=1000
 set confirm
@@ -139,8 +152,10 @@ set encoding=utf-8
 set termencoding=utf-8
 "}}}
 " Fileformats"{{{
-set fileformats=unix,mac,dos	" Read unix,mac,dos formatted files
-set fileformat=unix	" The default format is UNIX
+" Read unix,mac,dos formatted files
+set fileformats=unix,mac,dos
+" The default format is UNIX
+set fileformat=unix
 "}}}
 "Mark Tabs not used for indentation in Code"{{{
 match errorMsg /[^\t]\zs\t+/
@@ -179,15 +194,21 @@ set wildignore=.svn,CVS,.git,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp
 set wildmode=full
 "}}}
 " Backup and Swap"{{{
-set nobackup	" Do not keep a backup file, since most of the work is in Git, Svn, Hg
+" Do not keep a backup file,
+" since most of the work is in Git, Svn, Hg
+set nobackup
 set nowritebackup
 set noswapfile
 "}}}
 " Search Options"{{{
-set hlsearch   " Highlight search
-set incsearch  " Incremental search
-set magic      " Set magic on, for regular expressions
-set ignorecase " Searches are Non Case-sensitive
+" Highlight search
+set hlsearch
+" Incremental search
+set incsearch
+" Set magic on, for regular expressions
+set magic
+" Searches are Non Case-sensitive
+set ignorecase
 set smartcase
 "}}}
 " Conflict markers {{{
@@ -216,7 +237,8 @@ set foldtext=FoldText()
 "}}}
 " Universal FoldText function {{{
 function! FoldText(...)
-	" This function uses code from doy's vim-foldtext: https://github.com/doy/vim-foldtext
+	" This function uses code from doy's vim-foldtext:
+	" https://github.com/doy/vim-foldtext
 	" Prepare fold variables {{{
 
 	" Use function argument as line text if provided
@@ -349,16 +371,18 @@ au FileType php setlocal foldtext=FoldText() | setl foldtext=FoldText_PHP()
 " }}}
 " }}}
 " JavaScriptFold Function {{{
+" NOTE: I've disabled this one
+" since I'm gonna do the folding manually"
 
-function! JavaScriptFold()
-	setl foldmethod=syntax
-	setl foldlevelstart=1
-	syn region foldBraces start=/{/ end=/}/ transparent fold keepend extend
+" function! JavaScriptFold()
+" 	setl foldmethod=syntax
+" 	setl foldlevelstart=1
+" 	syn region foldBraces start=/{/ end=/}/ transparent fold keepend extend
 
-	setl foldtext=FoldText()
-endfunction
+" 	setl foldtext=FoldText()
+" endfunction
 
-au FileType javascript call JavaScriptFold()
+" au FileType javascript call JavaScriptFold()
 
 " }}}
 " }}}
@@ -417,7 +441,8 @@ if exists('+breakindent')
 endif
 "}}}
 " General UI Options"{{{
-set laststatus=2       " Always show the statusline
+" Always show the statusline
+set laststatus=2
 " set number           " Show Line Numbers
 set relativenumber     " Show Relative Line Numbers
 set numberwidth=4      " Width value of the Line Number Column
@@ -440,8 +465,12 @@ set nostartofline      " when moving thru the lines, the cursor will try to stay
 
 " LAYOUT / TEXT FORMATTING {{{
 " Formatting Options "{{{
-set wrap	" Soft Wrap in all files, while hard wrap can be allow by filetype
-set linebreak " It maintains the whole words when wrapping
+
+" Soft Wrap in all files,
+" while hard wrap can be allow by filetype
+set wrap
+" It maintains the whole words when wrapping
+set linebreak
 
 " set formatoptions=croqwanl1
 " c = auto wrap comments using textwidth
@@ -480,6 +509,9 @@ set noexpandtab
 		inoremap <F1> <ESC>
 		nnoremap <F1> <ESC>
 		vnoremap <F1> <ESC>
+		" The following line is for when I have no ESC physical key
+		vnoremap <Leader><Tab> <Esc>
+
 	"}}}
 	" Vertically split window and select it  {{{
 	nnoremap <Leader>v <C-w>v<C-w>l
@@ -578,9 +610,6 @@ set noexpandtab
 	" }}}
 	" Edit files that are in the main project root dir"{{{
 	nmap <Leader>ew :e <C-R>=expand("%:p:h")."/"<CR>
-	"}}}
-	" F7 will call MAKEPRG"{{{
-	map <F7> :make<CR>
 	"}}}
 	" Easy split navigation"{{{
 	nnoremap <C-h> <C-w>h
@@ -756,6 +785,7 @@ augroup General " {{{
 	endfunction
 
 	au FileType help au BufEnter,BufWinEnter <buffer> call <SID>SetupHelpWindow()
+	au FileType help au BufEnter,BufWinEnter <buffer> setlocal spell!
 	" }}}
 	" Fix space highlighting in diff files {{{
 	au FileType diff hi clear RedundantSpaces
@@ -872,7 +902,7 @@ augroup Filetype Specific " {{{
 	au FileType markdown nnoremap <silent> <leader>md :%!markdown 2>/dev/null<CR>
 
 	" Markdown formatting
-	au FileType markdown set ai formatoptions=tcroqn2 comments=n:>
+	au FileType markdown setlocal ai formatoptions=tcroqn2 comments=n:>
 
 	" Preview Markdown text
 	au Filetype markdown nnoremap <silent> <leader>pv : call MarkdownPreview()<CR>
@@ -942,7 +972,8 @@ augroup Filetype Specific " {{{
 	let g:php_no_shorttags = 1
 	" }}}
 	" Ruby {{{
-	au FileType ruby setlocal ts=2 sts=2 sw=2 noexpandtab foldmethod=syntax
+	" au FileType ruby setlocal ts=2 sts=2 sw=2 noexpandtab foldmethod=syntax
+	au FileType ruby setlocal ts=2 sts=2 sw=2 noexpandtab
 	" }}}
 	" Python {{{
 	au FileType python setlocal nocindent
