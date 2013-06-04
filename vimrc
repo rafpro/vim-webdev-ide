@@ -62,6 +62,7 @@ Bundle 'gmarik/vundle'
 	Bundle 'tyru/current-func-info.vim'
 	Bundle 'Shougo/neocomplcache'
 	Bundle 'Shougo/neosnippet'
+	Bundle 'honza/vim-snippets'
 	Bundle 'DataWraith/auto_mkdir'
 	Bundle 'sjl/gundo.vim'
 	Bundle 'scrooloose/nerdtree'
@@ -939,9 +940,9 @@ augroup Filetype Specific " {{{
 	au BufNewFile,BufRead *.jsm setlocal ft=javascript
 	au BufNewFile,BufRead Jakefile setlocal ft=javascript
 	au FileType javascript setlocal ts=4 sts=4 sw=4 noexpandtab
-	au FileType javascript setlocal foldenable
+	" au FileType javascript setlocal foldenable
 	au FileType javascript setlocal nocindent
-	au FileType javascript call JavaScriptFold()
+	" au FileType javascript call JavaScriptFold()
 
 	" jQuery syntax
 	au BufRead,BufNewFile jquery.*.js setlocal ft=javascript syntax=jquery
@@ -1075,14 +1076,8 @@ iab llorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eius
 	endif
 	let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
-	" Plugin key-mappings.
-	imap <C-k>     <Plug>(neocomplcache_snippets_expand)
-	smap <C-k>     <Plug>(neocomplcache_snippets_expand)
 	inoremap <expr><C-g>     neocomplcache#undo_completion()
 	inoremap <expr><C-l>     neocomplcache#complete_common_string()
-
-	" SuperTab like snippets behavior.
-	imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
 
 	" Recommended key-mappings.
 	" <CR>: close popup and save indent.
@@ -1121,6 +1116,25 @@ iab llorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eius
 	let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 
 	au BufNewFile,BufRead *.snip set syntax=snippet ft=snippet foldmethod=indent
+	" }}}
+	" neosnippet {{{
+	" Plugin key-mappings.
+	imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+	smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+	xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+	" SuperTab like snippets behavior.
+	imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+	\ "\<Plug>(neosnippet_expand_or_jump)"
+	\: pumvisible() ? "\<C-n>" : "\<TAB>"
+	smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+	\ "\<Plug>(neosnippet_expand_or_jump)"
+	\: "\<TAB>"
+
+	" For snippet_complete marker.
+	if has('conceal')
+	  set conceallevel=2 concealcursor=i
+	endif
 	" }}}
 	" NERD tree {{{
 	let g:NERDTreeChristmasTree = 1
